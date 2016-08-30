@@ -1,0 +1,1 @@
+scp -P 20044 -r /home/cxl/help/ root@112.80.5.143:/var/wocall_info
