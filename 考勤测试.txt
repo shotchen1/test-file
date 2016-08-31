@@ -1,0 +1,26 @@
+insert into talk_work_plan(eid,plan_name) values(11,'正常班');
+insert into talk_work_time(eid,plan_id,work_start,work_off) values(11,1,"08:00","18:00");
+insert into talk_member_plan(eid,plan_id,plan_name,mid,uid) values(11,1,"正常班",171,99);
+
+1471564800
+1471572000
+1471600800
+
+//创建公司地址
+curl -d 'un=1000&pwd=202cb962ac59075b964b07152d234b70&eid=11&epStr={"location":"南京大学","longtitude":"1212112","latitude":"32233223","valid_range":30}' http://127.0.0.1:1045/Talk/Api/modifyCompanyaddr
+//创建wifi地址
+curl -d 'un=1000&pwd=202cb962ac59075b964b07152d234b70&eid=11&mac_addr={"wifi_name":"emi_test","mac_addr":"dsd:2sds2:rfe:343443"}' http://127.0.0.1:1045/Talk/Api/modifyWifiMac
+//获取考勤地址
+curl -d 'un=1000&pwd=202cb962ac59075b964b07152d234b70&eid=11' http://127.0.0.1:1045/Talk/Api/getCompanyAddr
+//删除wifi
+curl -d 'un=1000&pwd=202cb962ac59075b964b07152d234b70&eid=11&macid=5' http://127.0.0.1:1045/Talk/Api/deleteWifiAddr
+//修改工作时间
+curl -d 'un=1000&pwd=202cb962ac59075b964b07152d234b70&eid=11&planStr={'plan_name':'时间方案',work_time:[{'h_day':'w-1','work_start':'08:00','work_off':'18:00'},{'h_day':'w-2','work_start':'08:00','work_off':'18:00'}]}' http://127.0.0.1:1045/Talk/Api/getCompanyAddr
+
+//新建考勤组
+curl -d 'un=1000&pwd=202cb962ac59075b964b07152d234b70&eid=11&agName=考勤测试组&uid=98,99,97&workplan={"work_time":[{"h_day":"w-1","work_start":"08:00","work_off":"18:00"},{"h_day":"w-2","work_start":"08:00","work_off":"18:00"}]}&location=[{"location":"奥体中心","valid_range":"100","longtitude":"1234","latitude":"5678"},{"location":"奥体中心2451","valid_range":"50","longtitude":"123334","latitude":"567811"}]&mac_addr=[{"mac_addr":"343443","wifi_name":"emi"},{"mac_addr":"45454545","wifi_name":"emi2"}]' http://127.0.0.1:1045/Talk/Api/setAttendanceGroup
+
+curl -d 'un=1000&pwd=202cb962ac59075b964b07152d234b70&eid=11' http://127.0.0.1:1045/Talk/Api/getAttendanceGroup
+//159测试企业
+curl -d 'un=1006&pwd=8190ed48d26a2235dc81152677291c11&eid=16' http://127.0.0.1:1045/Talk/Api/getAttendanceGroup
+curl -d 'un=1006&pwd=8190ed48d26a2235dc81152677291c11&eid=16&agName=考勤测试组&uid=98,99,97&workplan={"work_time":[{"h_day":"w-1","work_start":"08:00","work_off":"18:00"},{"h_day":"w-2","work_start":"08:00","work_off":"18:00"}]}&location=[{"location":"奥体中心","valid_range":"100","longtitude":"1234","latitude":"5678"},{"location":"奥体中心2451","valid_range":"50","longtitude":"123334","latitude":"567811"}]&mac_addr=[{"mac_addr":"343443","wifi_name":"emi"},{"mac_addr":"45454545","wifi_name":"emi2"}]' http://127.0.0.1:1045/Talk/Api/setAttendanceGroup
