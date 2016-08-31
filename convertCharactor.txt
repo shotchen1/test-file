@@ -1,0 +1,72 @@
+drop procedure if exists convertCharacter;  
+delimiter //  
+create procedure convertCharacter(in schemaName varchar(128),in charactorName varchar(128),in collationName varchar(128) )  
+begin  
+  declare tableName varchar(128);
+  declare columnName varchar(128);
+  declare columndefault longtext;
+  declare defaultValue longtext;
+  declare isNullAble varchar(3);
+  declare isNullAbleValue varchar(16);
+  declare columnType varchar(64);
+  declare columnComent longtext;
+  declare prevColumnName varchar(128);
+  	
+  declare no_more_rows integer DEFAULT 0; 
+  declare c_table_results cursor for select table_name from tmp_tables_table;
+  declare c_column_results cursor for select table_name,column_name,column_default,is_nullable,column_type,column_comment from tmp_columns_table;
+  declare continue handler for not found set no_more_rows=1;
+
+  drop temporary table if exists tmp_tables_table;
+  set @v_sql = concat("Create temporary table tmp_tables_table(select table_name from information_schema.tables where table_schema='",schemaName,"' and table_name<>'talk_user')");
+  select @v_sql;
+  prepare stmt from @v_sql;
+  execute stmt;
+  drop temporary table if exists tmp_columns_table;
+  set @v_sql = concat("Create temporary table tmp_columns_table(select table_name,column_name,column_default,is_nullable,column_type,column_comment from information_schema.columns where data_type='varchar' and table_schema='",schemaName,"' and table_name<>'talk_user')");
+  select @v_sql;
+  prepare stmt from @v_sql;
+  execute stmt;
+  
+
+  open c_table_results;
+  repeat
+    fetch c_table_results into tableName;
+    set @v_sql = concat("alter table ",tableName," default character set ",charactorName," collate ",collationName);
+    select @v_sql;
+    prepare stmt from @v_sql;
+    execute stmt;
+  until no_more_rows end repeat;  
+  close c_table_results;
+  drop temporary table if exists tmp_tables_table;
+  set no_more_rows = 0;
+  open c_column_results;
+  repeat  
+      fetch c_column_results into tableName,columnName,columndefault,isNullAble,columnType,columnComent;
+      if no_more_rows <> 1  then
+         if columndefault = 'null' then set  defaultValue = "''";
+         elseif columndefault is null then set defaultValue = "''";
+         elseif columndefault = 'NULL' then set defaultValue = "''";
+         else set defaultValue = concat("'",columndefault,"'");
+         end if;
+         if isNullAble = 'yes' then set isNullAbleValue = "";
+         else set isNullAbleValue = " not null ";
+         end if;
+         if columnComent is null then set columnComent = "";  
+         end if;
+         set @v_sql = concat("alter table ",tableName," change `",columnName,"` `",columnName,"` ",columnType,isNullAbleValue," default ",defaultValue," comment '",columnComent,"'");
+         select @v_sql;  
+         prepare stmt from @v_sql;
+         execute stmt;
+      end if;
+  until no_more_rows end repeat;  
+  close c_column_results;
+  drop temporary table if exists tmp_columns_table;
+  deallocate prepare stmt;
+end;  
+// 
+delimiter ;
+call convertCharacter('talk','utf8','utf8_unicode_ci');
+drop procedure if exists convertCharacter;  
+
+
