@@ -1,0 +1,210 @@
+//工单测试
+//插入流程定义数据
+节点表
+truncate table talk_flow_node;
+insert into talk_flow_node(defination_id,node_index,node_name,node_type,init_func,save_func,transit_func,prev_node_index,next_node_index,max_minutes) 
+values(1,1,"新建工单",0,'createWorksheet','','submitWorksheet',0,'{"default":2,"assignworksheet":3}',10)
+,(1,2,"分配工单",1,'unAssignWorksheet','','submitWorksheet',1,'{"default":3,"transferworksheet":2,"reassignworksheet":3,"assignworksheet":3,"unassignworksheet":2}',10)
+,(1,3,"处理工单",1,'assignWorksheet','','submitWorksheet',1,'{"default":4,"assignworksheet":3,"reassignworksheet":3,"transferworksheet":2}',10)
+,(1,4,"审核工单",1,'completeWorksheet','','submitWorksheet',1,'{"default":4,"refuseworksheet":3,"reassignworksheet":3,"transferworksheet":2,"assignworksheet":3}',10)
+,(1,5,"结束工单",99,'endWorksheet','','',1,'',10);
+
+//插入类型测试数据
+truncate table talk_ws_type;
+insert into talk_ws_type (id,eid,pId,ws_type_name,id_prefix) values(1,8,null,'售前','SQ'),(2,8,1,'电话回访','SQHF'),(3,8,null,'售后','SH'),(4,8,null,'办公室','BGS');
+
+//技能组数据
+mysql> select * from talk_enterprise_group where eid=8;
++----+-----+--------------+------+-------------+-------------+--------+------+-------+------+
+| id | pid | name         | eid  | create_time | update_time | status | type | level | oid  |
++----+-----+--------------+------+-------------+-------------+--------+------+-------+------+
+| 84 |   0 | 是滴是滴     |    8 |  1464085249 |  1464085249 |   NULL | NULL |     1 |    7 |
+| 83 |   0 | 害虫组       |    8 |  1464085237 |  1464085237 |   NULL | NULL |     1 |    6 |
+| 82 |   0 | test         |    8 |  1462986661 |  1464598441 |   NULL | NULL |     1 |    5 |
+| 81 |   0 | 龙阳村       |    8 |           0 |           0 |   NULL | NULL |     1 |    4 |
+| 80 |   0 | 靠山屯       |    8 |           0 |           0 |   NULL | NULL |     1 |    3 |
+| 79 |   0 | 研究所       |    8 |           0 |           0 |   NULL | NULL |     1 |    2 |
+| 78 |   0 | 开发部       |    8 |           0 |           0 |   NULL | NULL |     1 |    1 |
++----+-----+--------------+------+-------------+-------------+--------+------+-------+------+
+7 rows in set (0.00 sec)
+
+mysql> select id,uid,type,displayname,number,password,mobile from talk_sip_member where eid=8;
++----+-----+------+-------------+---------+----------+--------------+
+| id | uid | type | displayname | number  | password | mobile       |
++----+-----+------+-------------+---------+----------+--------------+
+| 71 |   6 |    0 | 陈旭林      | 4178    | 123      | 186411132232 |
+| 70 |   5 |    0 | 洪金宝      | 1103    | ESuDgy   | 13614564321  |
+| 69 |   4 |    0 | 李杰        | 1102    | Stopwj   | 13912345554  |
+| 68 |   3 |    0 | 王佳佳      | 1101    | yVXxei   | 13888888888  |
+| 67 |   2 |    1 | 刘德华      | 1100    | 777777   | 13999999999  |
+| 66 |   1 |    1 | 41000       | api4100 | 888888   | 41000        |
++----+-----+------+-------------+---------+----------+--------------+
+6 rows in set (0.00 sec)
+
+alter table talk_group_order add  role tinyint(2) not null default 0 comment '用户权限1为班长' after oid;
+
+mysql> select sgm.*,go.gid,go.role,go.oid from (select gm.gid,gm.eid,sm.displayname,sm.id,sm.uid,sm.number,sm.password,eg.name from talk_sip_member sm,talk_enterprise_group eg,talk_group_member gm where sm.id=gm.mid and eg.id=gm.gid and gm.eid=8) sgm left join talk_group_order go on sgm.id=go.mid and sgm.gid=go.gid;
++-----+-------------+--------+----------+--------------+
+| eid | displayname | number | password | name         |
++-----+-------------+--------+----------+--------------+
+|   8 | 李杰        | 1102   | Stopwj   | 是滴是滴     |
+|   8 | 王佳佳      | 1101   | yVXxei   | 害虫组       |
+|   8 | 刘德华      | 1100   | 777777   | test         |
+|   8 | 洪金宝      | 1103   | ESuDgy   | 龙阳村       |
+|   8 | 李杰        | 1102   | Stopwj   | 靠山屯       |
+|   8 | 王佳佳      | 1101   | yVXxei   | 研究所       |
+|   8 | 刘德华      | 1100   | 777777   | 开发部       |
+|   8 | 陈旭林      | 4178   | 123      | 开发部       |
+|   8 | 洪金宝      | 1103   | ESuDgy   | 开发部       |
+|   8 | 李杰        | 1102   | Stopwj   | 开发部       |
+|   8 | 王佳佳      | 1101   | yVXxei   | 开发部       |
++-----+-------------+--------+----------+--------------+
+11 rows in set (0.00 sec)
+
+mysql> select * from talk_ws_type;
++----+-----+------+--------------+-----------+
+| id | eid | pId  | ws_type_name | id_prefix |
++----+-----+------+--------------+-----------+
+|  1 |   8 | NULL | 售前         | SQ        |
+|  2 |   8 |    1 | 电话回访     | SQHF      |
+|  3 |   8 | NULL | 售后         | SH        |
+|  4 |   8 | NULL | 办公室       | BGS       |
++----+-----+------+--------------+-----------+
+4 rows in set (0.00 sec)
+
+//导入数据
+工单类型,工单描述*,客户电话*,负责技能组*,负责座席,截止时间*^M
+售前,关于呼叫中心二期,02566699808,开发部,,2016-06-30^M
+电话回访,回访用户,18610414443,开发部,刘德华,2016-06-29^M
+
+//清空所有过程数据
+truncate table talk_flow_process;
+truncate table talk_flow_history;
+truncate table talk_work_sheet;
+truncate table talk_ws_event;
+truncate table talk_ws_type;
+//设置班长
+insert into talk_group_order(gid,eid,mid,uid,oid,role) values(78,8,67,2,1,1);
+
+//新建工单（assign分组）
+curl -F "un=1101" -F "pwd=f204faa9da33d5964ceecf5baa5cb808" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/createworksheet.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+//返回json
+{"status":0,"info":"创建工单成功到分组","data":{"ws_title":"\u5de5\u5355\u6807\u9898","ws_type_id":"3","cm_name":"\u5173\u4e4b\u7433","gid":"78","cid":0,"cm_mobile":"13587676545","deadline":"1458334442","ws_desc":"\u5de5\u5355\u63cf\u8ff0","extra":"","introduction":"\u65b0\u5efa\u5de5\u5355\u63cf\u8ff0","eid":"8","creator":"3","uid":0,"ws_type_name":"\u552e\u540e","sheet_id":"SH001606200001","wsid":1,"id":1,"flow_id":1}}
+
+//删除工单
+curl -F "un=1101" -F "pwd=f204faa9da33d5964ceecf5baa5cb808" -F "eid=65680" -F "fn=@/home/cxl/test/worksheet/deleteworksheet.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+//返回json
+
+
+//新建工单（assign分组用户）
+curl -F "un=7272" -F "pwd=202cb962ac59075b964b07152d234b70" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/createworksheetofuser.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+//返回json
+
+//处理完成
+curl -F "un=1101" -F "pwd=f204faa9da33d5964ceecf5baa5cb808" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/submitworksheet.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+
+//驳回
+curl -F "un=1101" -F "pwd=f204faa9da33d5964ceecf5baa5cb808" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/refuseworksheet.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+
+//获取工单记录
+curl -d "un=1101&pwd=f204faa9da33d5964ceecf5baa5cb808&eid=8&sheet_id=16070400029" http://127.0.0.1:1045/Talk/Api/getWorksheets
+//返回json
+{"status":0,"info":1466578831,"data":{"count":"1","worksheets":[{"id":"4","eid":"8","gid":"78","uid":"3","ws_title":"\u63a8\u5e7f\u4e91\u603b\u673a","sheet_id":"SH001606210014","cid":"0","cm_name":"\u5173\u4e4b\u7433","cm_mobile":"13587676545","ws_type_id":"3","ws_status":"0","deadline":"1458334442","endtime":"0","ws_desc":"\u5de5\u5355\u63cf\u8ff0","refuse_times":"0","transfer_times":"0","creator":"3","ws_priority":"0","flow_node_id":"0","create_time":"1466512072","modify_time":"2016-06-21 20:27:52"}]}}
+
+//获取工单类型
+curl -d "un=1101&pwd=f204faa9da33d5964ceecf5baa5cb808&eid=8" http://127.0.0.1:1045/Talk/Api/getWsTypes
+//返回json
+{"status":0,"info":1466582719,"data":[{"id":"1","eid":"8","pId":null,"ws_type_name":"\u552e\u524d","id_prefix":"SQ"},{"id":"2","eid":"8","pId":"1","ws_type_name":"\u7535\u8bdd\u56de\u8bbf","id_prefix":"SQHF"},{"id":"3","eid":"8","pId":null,"ws_type_name":"\u552e\u540e","id_prefix":"SH"},{"id":"4","eid":"8","pId":null,"ws_type_name":"\u529e\u516c\u5ba4","id_prefix":"BGS"}]}
+
+//获取工单说明
+curl -d "un=1101&pwd=f204faa9da33d5964ceecf5baa5cb808&eid=8&sheet_id=16070400029" http://127.0.0.1:1045/Talk/Api/getWsEvents
+//返回json
+{"status":0,"info":1466582823,"data":[{"id":"4","eid":"8","wsid":"4","sheet_id":"SH001606210014","ws_event_type":"0","ws_event_desc":"\u63a8\u5e7f\u4e91\u603b\u673a\u91cd\u70b9\u5ba2\u6237","create_time":"1466512072","modify_time":"2016-06-21 20:27:52"}]}
+
+//获取groupOrder
+curl -d "un=1101&pwd=f204faa9da33d5964ceecf5baa5cb808&eid=8&sheet_id=SH001606210014" http://127.0.0.1:1045/Talk/Api/getGroupOrder
+//返回json
+{"status":"0","info":"get groups order success","data":[{"gid":"78","eid":"8","mid":"67","uid":"2","oid":"1","role":"1"}]}
+
+
+curl -d "un=1100&pwd=f63f4fbc9f8c85d409f2f59f2b9e12d5&eid=8&uid=3" http://127.0.0.1:1045/Talk/Api/getMember
+
+curl -d "un=1100&pwd=f63f4fbc9f8c85d409f2f59f2b9e12d5&eid=8&displayNames[]=我是好人&numbers[]=18732333111&mobiles[]=18732333111&roles[]=0&time_limit[]=300" http://127.0.0.1:1045/Talk/Api/createuser
+
+curl -d "un=api4100&pwd=21218cca77804d2ba1922c33e0151105&eid=8&mobiles[]=18668091280&numbers[]=18668091280&displayNames[]=18668091280&roles[]=0" http://127.0.0.1:1045/Talk/Api/createuser
+curl -d "un=api4100&pwd=21218cca77804d2ba1922c33e0151105&eid=82033&mobiles[]=18668091280&numbers[]=18668091280&displayNames[]=18668091280&roles[]=0" http://127.0.0.1:1045/Talk/Api/createuser
+
+
+//curl  "http://112.80.5.131:1046/Api/Bss/bssHttp?LoginName=admininterface&Password=interface&Operate=CreateSwitchboard&PlanCode=99039005&CallPermission=2&EpName=南京C类222&EpCode=C0002&Number=0259100098"
+//curl "http://112.80.5.131:1046/Api/Bss/bssHttp?LoginName=admininterface&Password=interface&Operate=modifycallpermission&EpCode=C0001&Number=0259100098&CallPermission=3"
+
+//新建工单（assign分组）
+curl -F "un=7272" -F "pwd=202cb962ac59075b964b07152d234b70" -F "eid=65680" -F "fn=@/home/cxl/test/worksheet/createworksheet.json" http://112.80.5.72:1045/Talk/Api/uploadJson
+
+curl -d "un=7272&pwd=202cb962ac59075b964b07152d234b70&eid=65680" http://112.80.5.72:1045/Talk/Api/getWsTypes
+curl -d "un=7272&pwd=202cb962ac59075b964b07152d234b70&eid=65680&sheet_id=16070500035" http://112.80.5.72:1045/Talk/Api/getWorksheets
+curl -d "un=7272&pwd=202cb962ac59075b964b07152d234b70&eid=65680" http://112.80.5.72:1045/Talk/Api/getGroupOrder
+
+
+//测试过程
+
+curl -F "un=1101" -F "pwd=f204faa9da33d5964ceecf5baa5cb808" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/createworksheet.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+
+{"status":0,"info":"创建工单成功","data":{"ws_title":"cxl\u65b0\u5efa\u5de5\u5355","ws_type_id":"0","cm_name":"\u5173\u4e4b\u7433","gid":"78","cid":"179","cm_mobile":"13587676545","deadline":"1458334442","extra":"","introduction":"\u65b0\u5efa\u5de5\u5355\u63cf\u8ff0","eid":"8","operator":"3","creator":"3","uid":0,"sheet_id":"16070700001","create_time":1467873654,"wsid":1,"id":1,"wseId":1,"flow_id":1}}
+
+curl -F "un=1101" -F "pwd=f204faa9da33d5964ceecf5baa5cb808" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/assignworksheet.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+
+{"status":0,"info":"提交工单成功","data":{"ws_method":"assignWorkSheet","wsid":"1","gid":"78","uid":6,"introduction":"\u63d0\u4ea4\u5230\u5904\u7406\u8282\u70b9\uff0c\u4ea4\u9648\u65ed\u6797\u5904\u7406","eid":"8","operator":"3","flow_id":"1","nextProcess":"assignworksheet","nextNode":3,"id":"1","sheet_id":"16070700001","ws_status":1,"wfhId":3}}
+
+curl -F "un=1101" -F "pwd=f204faa9da33d5964ceecf5baa5cb808" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/transitworksheet.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+
+{"eid":"8","gid":"78","uid":5,"ws_title":"cxl\u65b0\u5efa\u5de5\u5355","sheet_id":"16070700004","cid":"179","cm_name":"\u5173\u4e4b\u7433","cm_mobile":"13587676545","ws_type_id":"0","ws_type_name":"\u666e\u901a\u5de5\u5355","ws_status":1,"deadline":"1458334442","endtime":"0","ws_desc":"","refuse_times":"0","transfer_times":1,"creator":"3","ws_priority":"0","flow_node_id":"0","create_time":"1467880625","modify_time":"2016-07-07 16:37:09","wsid":2,"id":2,"oldWsid":"1","nextProcess":"assignworksheet","nextNode":3,"wfhId":4}}
+
+
+select sm.*,egm.gNames,egm.gids,ego.ogids,ego.oids,ego.roles from (select id,eid,uid,displayname,number,mobile from talk_sip_member where eid=8  and number<>'api4100') sm left join (select gm.mid,group_concat(eg.name) as gNames,group_concat(gm.gid) as gids from talk_enterprise_group eg,talk_group_member gm where eg.eid=8 and gm.gid=eg.id group by gm.mid) egm on egm.mid=sm.id left join (select go.mid,group_concat(go.oid) as oids,gm.mid,group_concat(go.gid) as ogids,group_concat(go.role) as roles from talk_group_order go where eid=8 group by go.mid) ego on ego.mid=sm.id;
+
+curl -d "un=1004&pwd=fed33392d3a48aa149a87a38b875ba4a&eid=65680&wsid=253" http://112.80.5.72:1045/Talk/Api/getWorksheets
+
+curl -F "un=6659" -F "pwd=fb1378d0b80ae44aae0000a3cff0b90f" -F "eid=65680" -F "fn=@/home/cxl/test/worksheet/createworksheet.json" http://112.80.5.72:1045/Talk/Api/uploadJson
+
+curl -F "un=1101" -F "pwd=f204faa9da33d5964ceecf5baa5cb808" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/createcustomer.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+curl -F "un=1101" -F "pwd=f204faa9da33d5964ceecf5baa5cb808" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/modifycustomer.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+
+
+select a.acount as incall_count,a.atime as incall_time,b.bcount as outcall_count,b.btime as outcall_time
+                ,(a.acount*100/c.ccount) as incall_rate,(b.bcount*100/d.dcount) as outcall_rate,e.evaluate as evaluate 
+                from (select count(service_number) as acount,sum(duration_timestamp) as atime from pbx_00010090.e_sip_callcenter_history 
+                where service_number = '1004_00010090' and incoming_timestamp >'' and (type=0 or type=2)) a
+                ,(select count(service_number) as bcount,sum(duration_timestamp) as btime from pbx_00010090.e_sip_callcenter_history 
+                where service_number = '1004_00010090' and incoming_timestamp >'' and (type=1 or type=3) and duration_timestamp !=0) b
+                ,(select count(*) as ccount from pbx_00010090.e_sip_callcenter_history where (service_number = '1004_00010090' or service_number is null) and incoming_timestamp >'' and (type=0 or type=2)) c
+                ,(select count(*) as dcount from pbx_00010090.e_sip_callcenter_history where service_number = '1004_00010090' and incoming_timestamp >'' and (type=1 or type=3)) d
+                ,(select sum(substring_index(evaluate_path,'-',-1))/count(evaluate_path) as evaluate 
+                from pbx_00010090.e_sip_callcenter_history where service_number='1004_00010090' and incoming_timestamp >'' and evaluate_path >0) e;
+
+
+insert into e_sip_callcenter_history(type,outline_number,service_number,cc_number
+,state,path,incoming_timestamp,confirm_timestamp,disconnect_timestamp,duration_timestamp
+,xfer_number,xfer_path,evaluate_path,enqueue_timestamp,send_invite_timestamp
+,send_query_msg_timestamp,recv_answer_msg_timestamp) values(
+0,'915120053957','1100_00000008','15120053957conf0_1468374669435'
+,11,2,1468374669,1468374727,1468374734,7
+,0,0,0,1468374685,1468374719
+,1468374711,1468374719);
+
+curl -d "un=1101&pwd=f204faa9da33d5964ceecf5baa5cb808&eid=8&cm_mobile=138111111" http://127.0.0.1:1045/Talk/Api/getCustomerCallHistory
+
+curl -d "eid=98453&lastupgradetime=1470020516&pwd=d17d1de10e749269f646e93553dbf455&un=8102" http://127.0.0.1:1045/Talk/Api/upgradeInfo
+http://112.80.5.134:1045/Talk/Api/upgradeInfo?
+
+curl -d "un=1100&pwd=f63f4fbc9f8c85d409f2f59f2b9e12d5&eid=8&syncId=0" http://127.0.0.1:1045/Talk/Api/upgradeInfo
+
+{"status":"0","info":1470053153,"data":{"members":[{"id":"69","uid":"4","displayname":"\u674e\u6770","number":"1102","current_version":null,"status":"0","type":"0","email":"","mobile":"13912345554","telephone":"","address":"\u9f0e\u98de\u4e39\u7802","pinyin":"lijie","duty":"\u5c0f\u5c0f\u5e26\u8ba2\u5355","is_waiter":"0","outside_callnumber":null,"permission":"2","callintype":"2","has_photo":"0","allow_invite_meeting":"0","time_limit":"0","groups":"84,80,82,81,78"},{"id":"175","uid":"9","displayname":"18668091280","number":"1002","current_version":null,"status":null,"type":"0","email":null,"mobile":"18668091280","telephone":null,"address":null,"pinyin":"18668091280","duty":null,"is_waiter":"0","outside_callnumber":null,"permission":"2","callintype":"4","has_photo":"0","allow_invite_meeting":"1","time_limit":"0","groups":null},{"id":"177","uid":"11","displayname":"\u4f01\u4e1a9-\u7528\u623701","number":"6027","current_version":null,"status":null,"type":"0","email":"","mobile":"13522458754","telephone":"","address":"","pinyin":"qiye9yonghu01","duty":"","is_waiter":"0","outside_callnumber":"","permission":"2","callintype":"2","has_photo":"0","allow_invite_meeting":"0","time_limit":"0","groups":"78"},{"id":"178","uid":"12","displayname":"\u4f01\u4e1a9-\u7528\u623702","number":"8758","current_version":null,"status":null,"type":"0","email":"","mobile":"15854856958","telephone":"","address":"","pinyin":"qiye9yonghu02","duty":"","is_waiter":"0","outside_callnumber":"","permission":"2","callintype":"2","has_photo":"0","allow_invite_meeting":"0","time_limit":"0","groups":"78"},{"id":"179","uid":"13","displayname":"\u4f01\u4e1a9-\u7528\u623703","number":"4204","current_version":null,"status":null,"type":"0","email":"","mobile":"13574859512","telephone":"","address":"","pinyin":"qiye9yonghu03","duty":"","is_waiter":"0","outside_callnumber":"","permission":"2","callintype":"2","has_photo":"0","allow_invite_meeting":"0","time_limit":"0","groups":"78"},{"id":"180","uid":"14","displayname":"\u4f01\u4e1a9-\u7528\u623704","number":"4786","current_version":null,"status":null,"type":"0","email":"","mobile":"13695487526","telephone":"","address":"","pinyin":"qiye9yonghu04","duty":"","is_waiter":"0","outside_callnumber":"","permission":"2","callintype":"2","has_photo":"0","allow_invite_meeting":"0","time_limit":"0","groups":"78"},{"id":"181","uid":"15","displayname":"\u9f9a\u5f3a02","number":"6888","current_version":null,"status":null,"type":"0","email":"","mobile":"13258547854","telephone":"","address":"","pinyin":"gongqiang02","duty":"","is_waiter":"0","outside_callnumber":"","permission":"2","callintype":"2","has_photo":"0","allow_invite_meeting":"0","time_limit":"0","groups":"78"},{"id":"182","uid":"16","displayname":"\u8f66\u5e02\u5927\u591a\u6570","number":"4600","current_version":"","status":null,"type":"0","email":"","mobile":"15609100655","telephone":"","address":"","pinyin":"cheshidaduoshu","duty":"","is_waiter":"0","outside_callnumber":"","permission":"2","callintype":"2","has_photo":"0","allow_invite_meeting":"0","time_limit":"0","groups":null}],"photos":[],"deleteUids":["10"],"deletePhotoUids":[],"groups":[{"id":"78","pid":"0","name":"\u5f00\u53d1\u90e8","level":"1","oid":"1"},{"id":"81","pid":"0","name":"\u9f99\u9633\u6751","level":"1","oid":"4"},{"id":"82","pid":"0","name":"test","level":"1","oid":"5"}],"deleteGids":[],"customers":false,"delCids":["170","171","172","189"],"delCeventids":[],"changeOrder":[],"deleteOrder":[{"uid":"2","gid":"78"},{"uid":"3","gid":"81"},{"uid":"4","gid":"81"}],"epName":"test","allow_dept_flag":"0","allow_checkin":"1","allow_callcenter":"4","syncId":"83","is_supet":0}}
+
+curl -d "un=1100&pwd=f63f4fbc9f8c85d409f2f59f2b9e12d5&eid=8&syncId=0&amount=10" http://127.0.0.1:1045/Talk/Api/upgradeInfo
+{"status":"0","info":1470053292,"data":{"members":[],"photos":[],"deleteUids":[],"deletePhotoUids":[],"groups":[],"deleteGids":[],"customers":false,"delCids":["170","171","172"],"delCeventids":[],"changeOrder":[],"deleteOrder":[],"maxSyncId":"83","epName":"test","allow_dept_flag":"0","allow_checkin":"1","allow_callcenter":"4","syncId":"83","is_supet":0}}
+
+curl -d "un=3426&pwd=202cb962ac59075b964b07152d234b70&eid=8&syncId=40700" http://127.0.0.1:1045/Talk/Api/upgradeInfo
+
+curl -F "un=5209" -F "pwd=202cb962ac59075b964b07152d234b70" -F "eid=8" -F "fn=@/home/cxl/test/worksheet/createworksheet1.json" http://127.0.0.1:1045/Talk/Api/uploadJson
+curl -F "un=6659" -F "pwd=fb1378d0b80ae44aae0000a3cff0b90f" -F "eid=65680" -F "fn=@/home/cxl/test/worksheet/createworksheet1.json" http://112.80.5.72:1045/Talk/Api/uploadJson
