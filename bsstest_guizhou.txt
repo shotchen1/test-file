@@ -1,0 +1,48 @@
+curl -d "Operate=CreateSwitchboard&Number=085177778888&MaxMember=50&EpName=贵州bss测试企业&BussinessType=C&LoginName=8685177778888@gui.ims&Password=000000" http://10.0.0.232:1046/Api/Bss/bssHttp 
+curl -d "Operate=CreateHotline&SwitchNumber=085177778888&MaxMember=50" http://10.0.0.232:1046/Api/Bss/bssHttp 
+curl -d "Operate=DeleteHotline&SwitchNumber=085177778888" http://10.0.0.232:1046/Api/Bss/bssHttp 
+curl -d "Operate=CreateHotline&SwitchNumber=085166661234&MaxMember=50&EpName=贵州bss客服热线2&LoginName=8685166661234@gui.ims&Password=000000" http://127.0.0.1:1046/Api/Bss/bssHttp 
+curl -d "Operate=DeleteHotline&SwitchNumber=085166661234" http://127.0.0.1:1046/Api/Bss/bssHttp 
+http://112.80.5.131:1046/Api/Bss/bssHttp?Operate=UpdateProfile&SwitchNumber=085199966560&JsonData={\"contactInfo\":{\"contact_name\":\"\u738b\u5c0f\u4e94\",\"contact_mobile\":\"15651025612\",\"contact_mail\":\"cxlddd@163.com\"}}
+http://112.80.5.131:1046/Api/Bss/bssHttp?Operate=UpdateProfile&SwitchNumber=085199966560&JsonData={"contactInfo":{"contact_name":"\u738b\u5c0f\u4e94","contact_mobile":"15651025612","contact_mail":"cxlddd@163.com"}}
+curl -d "Operate=UpdateProfile&SwitchNumber=085166669999&JsonData={\"contactInfo\":{\"contact_name\":\"天天向上\",\"contact_mobile\":\"139999999\",\"contact_mail\":\"ddd@163.com\"}}" http://10.0.0.232:1046/Api/Bss/bssHttp
+
+//浙江添加直线号码
+curl -d "Operate=CreateSwitchboard&Number=057725899606&MaxMember=20&EpName=浙江bss测试企业A类" http://127.0.0.1:1046/Api/Bss/bssHttp 
+curl -d "Operate=createdirectnumber&CustomId=175652305&Number=057725899636&UserId=306958895&SwitchNumber=057725899606&CallPermission=2" http://127.0.0.1:1046/Api/Bss/bssHttp
+
+//uploadInfo接口
+curl -F "un=1100" -F "pwd=6255ef3ab51417dd57f577cd7d82da45" -F "eid=8" -F "fn=@/home/cxl/update.json" http://127.0.0.1:1045/Talk/Api/updateInfo
+curl -F "un=1001" -F "pwd=e10adc3949ba59abbe56e057f20f883e" -F "eid=16" -F "fn=@/home/Jumpserver_dev/update.json" http://127.0.0.1:1045/Talk/Api/updateInfo
+
+//陕西多个总机
+curl -d "Operate=CreateSwitchboard&CustomId=sx0003456&Number=0298745678&PlanCode=81544&EpName=陕西BSS扩容测试" http://127.0.0.1:1046/Api/Bss/bssHttp
+curl -d "Operate=CreateSwitchboard&CustomId=sx0001&Number=0293676768&PlanCode=81544&EpName=陕西BSS扩容测试" http://127.0.0.1:1046/Api/Bss/bssHttp 
+curl -d "Operate=CreateSwitchboard&CustomId=sx0001&Number=0293676769&PlanCode=81544&EpName=陕西BSS扩容测试" http://127.0.0.1:1046/Api/Bss/bssHttp
+
+//配置炫铃,支持配置“自动呼叫转接功能” pbx库path为a
+curl -d 'un=1000&pwd=a9b7ba70783b617e9998dc4dd82eb3c5&eid=11&applyTime=20160608&treeStr=[{"id":0,"pId":null,"name":"南京易米","path":"","type":0,"ccType":1,"call_center_old_menu":1},{"id":1,"pId":0,"name":"自动转接","path":"a","type":3,"members":[{"uid":1},{"uid":2}]}]' http://127.0.0.1:1045/Talk/Api/applyCallcenter
+
+//修改呼叫权限
+curl -d "Operate=modifycallpermission&Number=02566692931&CallPermission=3" http://127.0.0.1:1046/Api/Bss/bssHttp
+
+//获取用户资料getinfo
+insert into m_register_code(randkey,eid,mobile,register_code,last_register_time,sid) values('18610414881_1465796196',74226,'18626425264','1234','2016-07-01 00:00:00',9);  
+curl -d "registerKey=1234&mobile=18626425264" http://127.0.0.1:1046/Api/Client/getinfo
+
+//浙江新装总机密码测试
+curl -d "Operate=CreateSwitchboard&CustomId=zj1234567890&Number=057181774908&MaxMember=50&EpName=浙江新装总机测试" http://127.0.0.1:1046/Api/Bss/bssHttp
+
+//广西一人企业缺省为云电话
+curl -d "Operate=CreateSwitchboard&CustomId=gx1234567890&Number=077081774906&MaxMember=1&EpName=广西新装总机测试" http://127.0.0.1:1046/Api/Bss/bssHttp
+
+//贵州新装总机，带联系人
+curl -d "Operate=CreateSwitchboard&Number=085169696911&MaxMember=50&EpName=贵州bss测试企业&BussinessType=C&LoginName=8685177778888@gui.ims&Password=000000&ContactName=陈真&ContactMobile=13412345444&ContactEmail=sxxx@xxx.com" http://10.0.0.232:1046/Api/Bss/bssHttp 
+//修改最大用户数,带联系人
+curl -d "Operate=modifymaxmember&Number=085169696911&MaxMember=30&ContactName=陈师妹&ContactMobile=133333333&ContactEmail=wwwwww@xxx.com" http://127.0.0.1:1046/Api/Bss/bssHttp
+
+curl -d "Operate=CreateSwitchboard&Number=085177778888&MaxMember=50&EpName=陈雪林" http://127.0.0.1:1046/Api/Bss/bssHttp 
+
+curl -d "un=1000&pwd=aee2eedb69f2ccbe1676dd3805cab251&switchNumber=02566687960" http://112.80.5.155:1046/Api/Client/getinfo
+//添加一个测试企业
+curl -d "Operate=CreateSwitchboard&Number=02577778888&MaxMember=50&EpName=测试企业&b_status=1" http://127.0.0.1:1046/Api/Bss/bssHttp 
