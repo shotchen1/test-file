@@ -1,0 +1,266 @@
+最近做的项目中有用到别人的webservice的服务，所以先自己实现一个简单的webservice服务器，集成到thinkphp3.1中
+1、下载https://github.com/piotrooo/wsdl-creator.git，wsdl文件创建器，我下载的版本是1.4.2
+2、https://github.com/letsdrink/ouzo-goodies.git，是array的工具集，wsdl用到了，我下载的版本是1.5.1
+3、将下载文件拷贝到thinkphp的vendor目录下，结构如下
+-- Ouzo
+---- Utilities
+-- WSDL
+---- Parser
+---- Service
+---- Types
+.....等等，就是wsdl-creator下src下的内容
+4、参照wsdl-creator的例子，在thinkphp下写了一个实现WebServiceAction.class.php,程序如下
+
+use WSDL\DocumentLiteralWrapper;
+use WSDL\WSDLCreator;
+use WSDL\XML\Styles\DocumentLiteralWrapped;
+
+class WebServiceAction extends NoAuthAction {
+    
+	public function _initialize() {
+		//自动加载
+		spl_autoload_register(array('WebServiceAction', 'loadClass'));
+	}
+	/**
+	 * 
+	 * 自动加载，主要完成到VENDOR_PATH目录，按命名空间加载php类。避免找不到php类的问题
+	 * @param unknown_type $className
+	 */
+	private function loadClass($className) {
+        $fileName = '';
+        $namespace = '';
+
+        // Sets the include path as the "src" directory
+        $includePath = VENDOR_PATH;
+
+        if (false !== ($lastNsPos = strripos($className, '\\'))) {
+            $namespace = substr($className, 0, $lastNsPos);
+            $className = substr($className, $lastNsPos + 1);
+            $fileName = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+        }
+        $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+        $fullFileName = $includePath . DIRECTORY_SEPARATOR . $fileName;
+        
+        if (file_exists($fullFileName)) {
+            require $fullFileName;
+        } else {
+            echo 'Class "'.$className.'" does not exist.';
+        }
+    }
+	/**
+	 * 
+	 * webservice服务器.
+	 */
+	public function service(){
+		$wsdl = new WSDLCreator('ObjectSoapServer', 'http://10.0.0.232:1046/Enterprise/WebService/service');
+		$wsdl->setNamespace("http://foo.bar/")->setBindingStyle(new DocumentLiteralWrapped());
+		if (isset($_GET['wsdl'])) {
+	    	$wsdl->renderWSDL();//生成wsdl文件
+	    	exit;
+		}
+		$wsdl->renderWSDLService();
+
+		$server = new SoapServer('http://10.0.0.232:1046/Enterprise/WebService/service?wsdl', array(
+		    'uri' => $wsdl->getNamespaceWithSanitizedClass(),
+		    'location' => $wsdl->getLocation(),
+		    'style' => SOAP_DOCUMENT,
+		    'use' => SOAP_LITERAL
+		));
+		$server->setObject(new DocumentLiteralWrapper(new ObjectSoapServer()));
+		$server->handle();
+	}
+	/**
+	* 测试服务器
+	*/
+	public function soapTest(){
+		ini_set("soap.wsdl_cache_enabled", 0);
+		$soapClient = new SoapClient('http://10.0.0.232:1046/Enterprise/WebService/service?wsdl', array(
+            'uri' => "http://foo.bar/", 'location' => 'http://10.0.0.232:1046/Enterprise/WebService/service',
+            'trace' => true, 'cache_wsdl' => WSDL_CACHE_NONE
+        ));
+        $user = new stdClass();
+        $user->name = 'john';
+        $user->age = 32;
+        $response = $soapClient->userInfo(array('info' => $user));
+        dump($response);
+	}
+}
+class Agent
+{
+    /**
+     * @type string
+     */
+    public $name;
+    /**
+     * @type int
+     */
+    public $number;
+}
+/**
+* webservice服务类
+*/
+class ObjectSoapServer
+{
+    /**
+     * @WebMethod
+     * @param object $info @string=$name @int=$age
+     * @return string $returnInfo
+     */
+    public function userInfo($info)
+    {
+        return 'Your name is: ' . $info->name . ' and you have ' . $info->age . ' years old, it\'s ok?';
+    }
+
+    /**
+     * @WebMethod
+     * @param string $name
+     * @param string $number
+     * @return object $agentNameWithId @(wrapper $agent @className=Agent) @int=$id
+     */
+    public function getAgentWithId($name, $number)
+    {
+        $agent = new Agent();
+        $agent->name = $name;
+        $agent->number = $number;
+
+        $return = new stdClass();
+        $return->agent = $agent;
+        $return->id = 3543456;
+        return $return;
+    }
+
+    /**
+     * @WebMethod
+     * @param object $namesInfo @string[]=$names @int=$id
+     * @return string $namesForId
+     */
+    public function namesForId($namesInfo)
+    {
+        //FIXME incorrect $names array
+        return '[#' . $namesInfo->id . '] Names: ' . implode(', ', $namesInfo->names);
+    }
+
+    /**
+     * @WebMethod
+     * @return object[] $companies @string=$name @int=$id
+     */
+    public function getCompanies()
+    {
+        //FIXME incorrect response structure
+        $companies = array();
+        $companies[0] = new stdClass();
+        $companies[0]->name = 'Example1';
+        $companies[0]->id = '1';
+        $companies[1] = new stdClass();
+        $companies[1]->name = 'Example2';
+        $companies[1]->id = '3';
+        return $companies;
+    }
+
+    /**
+     * @WebMethod
+     * @return object $listOfAgents @(wrapper[] $agents @className=Agent) @int=$id
+     */
+    public function getListOfAgentsWithId()
+    {
+        //FIXME incorrect response structure
+        $obj = new stdClass();
+        $obj->agents[0] = new Agent();
+        $obj->agents[0]->name = 'agent1';
+        $obj->agents[1] = new Agent();
+        $obj->agents[1]->name = 'agent2';
+        $obj->id = '555';
+        return $obj;
+    }
+
+    /**
+     * @WebMethod
+     * @param object[] $payments @float[]=$payment @string=$user
+     * @return object[] $paymentsUsers @string=$user @int=$countPayment
+     */
+    public function setPayment($payments)
+    {
+        //FIXME incorrect response structure
+        $paymentsUsers = array();
+        foreach ($payments as $i => $payment) {
+            $paymentsUsers[$i] = new stdClass();
+            $paymentsUsers[$i]->user = $payment->user;
+            $paymentsUsers[$i]->countPayment = count($payment->payment);
+        }
+        return $paymentsUsers;
+    }
+
+    /**
+     * @WebMethod
+     * @return object[] $agentsWithPayment @(wrapper $agent @className=Agent) @float=$payment
+     */
+    public function getAgentsWithPayment()
+    {
+        //FIXME incorrect response structure
+        $obj = array();
+        $obj[0] = new stdClass();
+        $obj[0]->agent = new Agent();
+        $obj[0]->agent->name = 'agent1';
+        $obj[0]->payment = '123.56';
+        $obj[1] = new stdClass();
+        $obj[1]->agent = new Agent();
+        $obj[1]->agent->name = 'agent2';
+        $obj[1]->payment = '6546.56';
+        return $obj;
+    }
+
+    /**
+     * @WebMethod
+     * @return object[] $employeesList @(wrapper[] $agents @className=Agent)
+     */
+    public function getEmployeesWithAgents()
+    {
+        //FIXME incorrect response structure
+        $obj = array();
+        $obj[0] = new stdClass();
+        $obj[0]->agents[0] = new Agent();
+        $obj[0]->agents[0]->name = 'agent1';
+        $obj[0]->agents[1] = new Agent();
+        $obj[0]->agents[1]->name = 'agent2';
+        $obj[1] = new stdClass();
+        $obj[1]->agents[0] = new Agent();
+        $obj[1]->agents[0]->name = 'agent3';
+        $obj[1]->agents[1] = new Agent();
+        $obj[1]->agents[1]->name = 'agent4';
+        return $obj;
+    }
+}
+
+5、测试
+http://10.0.0.232:1046/index.php/Enterprise/WebService/soapTest
+返回结果
+object(stdClass)#5 (1) {
+  ["returnInfo"] => string(54) "Your name is: john and you have 32 years old, it's ok?"
+}
+6、总结
+如果简单使用无wsdl文件的webservice，还是挺简单的，代码如下
+class TestAction extends NoAuthAction {
+	public function _initialize() {
+      
+    }
+
+    // 定义服务程序
+    function hello() {
+        return 'Hello World 122323!';
+    }
+    
+	public function index(){
+	   $server = new SoapServer(null,array("location"=>"http://10.0.0.232:1046/Enterprise/Test/index","uri"=>"index.html"));
+       $server->setClass(get_class($this));
+       $server->handle();
+	}
+	
+	public function testSoap(){
+		$client = new SoapClient(null,array("location"=>"http://10.0.0.232:1046/Enterprise/Test/index","uri"=>"index.html","style"=> SOAP_RPC,"use" => SOAP_ENCODED));
+		echo $client->hello();
+		unset($client);
+	}
+}
+在使用wsdl-creator后，开始使用vendor导入，但一直提示找不到里面的某个使用类，看了一下thinkphp的源码，似乎要一个一个导入才行，没办法只能自己写了一个autoload
+
+程序写的很粗糙，大家凑合着看^~^
