@@ -1,1 +1,9 @@
+# 安装subversion
+apt-get install subversion
 
+# 创建项目目录
+mkdir svn
+
+# 创建仓库
+svnadmin create /home/svn/project
+chmod 777 -R /home/svn/project
