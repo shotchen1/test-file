@@ -7,3 +7,21 @@ mkdir svn
 # 创建仓库
 svnadmin create /home/svn/project
 chmod 777 -R /home/svn/project
+# 查看svn服务器是否支持 cyrus sasl 方式认证
+svnserve --version
+是否存在 Cyrus SASL authentication is available.
+# 配置权限
+1、vi /home/svn/project/conf/svnserve.conf
+打开 auth-access = write 授权用户可写
+2、vi /home/svn/project/conf/passwd
+添加用户
+[users]
+# harry = harryssecret
+# sally = sallyssecret
+cxl = xuelin
+wqx = qinxue
+3、vi /home/svn/project/conf/authz 
+admin = cxl
+@admin = rw
+* = r
+admin=andy，andy用户属于admin权限组，@admin=rw，admin权限组可以read
