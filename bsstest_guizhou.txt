@@ -46,3 +46,11 @@ curl -d "Operate=CreateSwitchboard&Number=085177778888&MaxMember=50&EpName=陈�
 curl -d "un=1000&pwd=aee2eedb69f2ccbe1676dd3805cab251&switchNumber=02566687960" http://112.80.5.155:1046/Api/Client/getinfo
 //添加一个测试企业
 curl -d "Operate=CreateSwitchboard&Number=02577778888&MaxMember=50&EpName=测试企业&b_status=1" http://127.0.0.1:1046/Api/Bss/bssHttp 
+
+Bug 12831使用已销户号码再次bss开户，登录该企业后台时出现登录到已销户企业现象
+#添加外线
+curl -d "Operate=CreateSwitchboard&Number=02581774908&MaxMember=50&EpName=Bug12831测试&b_status=1" http://127.0.0.1:1046/Api/Bss/bssHttp
+#删除外线
+curl -d "Operate=DeleteNumber&Number=02581774908" http://127.0.0.1:1046/Api/Bss/bssHttp
+#重新添加外线
+curl -d "Operate=CreateSwitchboard&Number=02581774908&MaxMember=50&EpName=Bug12831测试&b_status=1" http://127.0.0.1:1046/Api/Bss/bssHttp
