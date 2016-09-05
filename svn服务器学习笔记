@@ -23,5 +23,5 @@ wqx = qinxue
 3、vi /home/svn/project/conf/authz 
 admin = cxl
 @admin = rw
-* = r
-admin=andy，andy用户属于admin权限组，@admin=rw，admin权限组可以read
+* = 
+admin=cxl，cxl用户属于admin权限组，@admin=rw，admin权限组可以read，其他用户不能读取
