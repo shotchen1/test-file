@@ -5,3 +5,8 @@ scp -P 20044 -r /home/cxl/help/ root@112.80.5.143:/var/wocall_info
 du /var/pbx/tmp/emic/34/Voice -d 1 -m
 -d 深度
 -m 以mb显示大小 -k 以kb显示 -b 以bytes显示
+
+查看已安装包
+dpkg -l
+查看软件nano的详细信息:
+dpkg -s nano
