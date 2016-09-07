@@ -10,3 +10,6 @@ du /var/pbx/tmp/emic/34/Voice -d 1 -m
 dpkg -l
 查看软件nano的详细信息:
 dpkg -s nano
+
+搜索软件包
+apt-cache search libssl-dev
