@@ -6,5 +6,9 @@
 5、merge
 
 # 源码安装git
-
+1、安装git依赖的类库
+apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
+2、下载源码，zip文件，通过samba拷到服务器上
+3、进入源码路径，版本为2.10
+4、apt-get install make
 
