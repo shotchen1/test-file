@@ -11,4 +11,9 @@ apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
 2、下载源码，zip文件，通过samba拷到服务器上
 3、进入源码路径，版本为2.10
 4、apt-get install make
+5、make prefix=/usr/local all
+6、make prefix=/usr/local install
+7、git --version
+   git version 2.10.0
+8、克隆git，git clone git://git.kernel.org/pub/scm/git/git.git
 
