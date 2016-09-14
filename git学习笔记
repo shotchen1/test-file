@@ -18,12 +18,26 @@ apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
 8、克隆git，git clone git://git.kernel.org/pub/scm/git/git.git
 
 #从无到有建立git开发环境
+环境10.0.0.21 版本服务器，10.0.0.22 开发服务器
 1、安装开发服务器及git依赖库apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev make
 2、拷贝git源码 scp -r root@10.0.0.21:/home/cxl/src/git-master /home/cxl/src/git-master/
 3、按照上节安装git
 4、配置git服务器属性(版本服务器和开发服务器上都配置）
    git config --global user.name "xuelin chen"
    git config --global user.email chenxuelin@emicnet.com
-5、
+5、版本服务器上建立测试项目
+   mkdir testpj, cd testpj,git init
+6、新建测试文件README
+   vi README,git add README,git commit -m 'add a readme file'
+7、版本服务器上导出裸仓库
+   git clone --bare /home/cxl/project/testpj /home/cxl/barepj/testpj.git
+   效果大致相当于cp -rf /home/cxl/project/testpj/.git /home/cxl/barepj/testpj.git
+8、开发服务器上clone发布的项目 git clone root@10.0.0.21:/home/cxl/barepj/testpj.git
+9、git status 查看状态
+10、git add [fn] 加入文件到暂存区，git commit -m '提交' 提交暂存区文件到版本库
+11、git commit -a -m '直接提交文件不在暂存区保留'
+12、git diff 查看修改的地方
+13、git log -p -2 我们常用 -p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新：
+
    
 
