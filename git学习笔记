@@ -18,3 +18,5 @@ apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
 8、克隆git，git clone git://git.kernel.org/pub/scm/git/git.git
 
 添加一些内容
+
+为啥内容带订单
