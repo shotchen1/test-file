@@ -19,8 +19,27 @@
 * 用户本地开发
 * 用户push版本到远程服务器
 * 用户获取远程服务器更新
+* 分支仓库更新
 
 环境如下：
 10.0.0.21 git和svn服务器
 10.0.0.22 git开发服务器1 模拟本地开发
 10.0.0.23 git开发服务器2 模拟多个客户开发时互相同步
+
+建立测试环境
+1、创建10.0.0.23虚拟机 vboxmanage clonevm ubuntu1204-base  --name "23-developer" --register --basefolder "/home/cxl/virtualbox/vm" 
+2、vboxmanage modifyvm 23-developer --vrde on --vrdeport 5001
+3、启动虚拟机 vboxmanage startvm 23-developer --type headless
+4、apt-get update --fix-missing
+5、安装git
+6、新建svn项目
+* mkdir /home/svn/test-svn 
+* svnadmin create /home/svn/test-svn/
+* vi /home/svn/test-svn/hooks/pre-revprop-change 
+  #!/bin/bash
+  exit 0;
+* chmod +x /home/svn/test-svn/hooks/pre-revprop-change
+* svnsync init  --source-username chenxl --source-password xuelin --sync-username chenxl  --sync-password xuelin svn://10.0.0.21/test-svn svn://192.168.1.66/namtso/branch/web_code/svntest
+* svnsync sync --source-username chenxl --source-password xuelin --sync-username chenxl  --sync-password xuelin svn://10.0.0.21/test-svn
+7、用git-svn下载项目
+* 
