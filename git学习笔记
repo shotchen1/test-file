@@ -40,10 +40,14 @@ apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
 13、git log -p -2 我们常用 -p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新：
 14、git push [remote-name] [branch-name] 提交修改到远程仓库，git push origin master
 15、git fetch [remote-name] 获取远程仓库更新
+***  目前先不做以下安装 gitosis 与 gitolite 都是管理git权限的程序 ***
 16、安装Gitosis 项目，Gitosis 的工作依赖于某些 Python 工具，所以首先要安装 Python 的 setuptools 包，在 Ubuntu 上称为 python-setuptools：
 apt-get install python-setuptools
 17、git clone https://github.com/res0nat0r/gitosis
 18、cd gitosis，python setup.py install 安装gitosis
+19、ssh-keygen 生成公钥
+20、sudo -H -u git gitosis-init < /tmp/id_rsa.pub 利用公钥初始化 Gitosis 了
+21、sudo chmod 755 /home/git/repositories/gitosis-admin.git/hooks/post-update
 
    
 
