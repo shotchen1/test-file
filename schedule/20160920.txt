@@ -25,3 +25,18 @@
 * 修改readme并提交 git commit -a -m 'made other change'
 * git checkout master 切换回主分支
 * 查看readme
+* git branch -va 查看当前分支
+* git checkout master 
+* git merge test 切换回主分支并merge 分支test的修改
+* git branch -d test 删除分支
+# git多分支测试
+* git checkout -b develope
+* 修改readme并提交
+* git checkout master
+* git checkout -b iss53
+* 修改readme并提交
+* git checkout master 切换回主分支允许 git merge iss53
+* git branch -d iss53 删除分支
+* git merge develope 合并开发分支，有冲突编辑冲突文件 git add 后表示解决冲突 git commit
+* git checkout develope 切换到开发分支并运行 git merge master
+
