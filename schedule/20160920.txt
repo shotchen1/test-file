@@ -11,3 +11,12 @@
 * git commit -m "add line from git"
 * install Perl's Term::ReadKey module root执行cpan Term::ReadKey
 * git svn dcommit
+# 测试git svn同时修改代码
+* svn修改readme
+* git修改readme
+* git svn rebase 提示解决冲突
+* 解决冲突后 git add readme.txt
+* git rebase --continue
+* git svn dcommit 完成冲突解决
+# git开发模式
+
