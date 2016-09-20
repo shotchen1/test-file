@@ -42,4 +42,5 @@
 * svnsync init  --source-username chenxl --source-password xuelin --sync-username chenxl  --sync-password xuelin svn://10.0.0.21/test-svn svn://192.168.1.66/namtso/branch/web_code/svntest
 * svnsync sync --source-username chenxl --source-password xuelin --sync-username chenxl  --sync-password xuelin svn://10.0.0.21/test-svn
 7、用git-svn下载项目
-* 
+* 安装svn perl支持  apt-get install subversion-tools
+* git svn clone svn://10.0.0.21/test-svn
