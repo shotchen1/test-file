@@ -19,4 +19,9 @@
 * git rebase --continue
 * git svn dcommit 完成冲突解决
 # git开发模式
-
+# git分支测试
+* git branch test
+* git checkout test 切换到test分支
+* 修改readme并提交 git commit -a -m 'made other change'
+* git checkout master 切换回主分支
+* 查看readme
