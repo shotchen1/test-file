@@ -1,0 +1,13 @@
+# 建立svn项目 svnadmin create /home/svn/testgit
+# 参考svn学习设置权限
+# 提交readme.txt
+# git svn clone svn://10.0.0.21/testgit git检出项目
+# 测试svn与git同步
+* svn修改文件
+* git svn rebase 同步svn代码
+# 测试git中修改文件
+* git中修改文件
+* git add readme.txt
+* git commit -m "add line from git"
+* install Perl's Term::ReadKey module root执行cpan Term::ReadKey
+* git svn dcommit
