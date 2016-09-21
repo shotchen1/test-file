@@ -5,4 +5,5 @@
 ** curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
 sudo apt-get install gitlab-ce
 ** 手工安装 下载包https://packages.gitlab.com/gitlab/gitlab-ce/packages/ubuntu/precise/gitlab-ce_8.11.7-ce.0_amd64.deb/download
-** dpkg -i /home/cxl/gitlab-ce-XXX.deb
+** dpkg -i /home/cxl/src/gitlab-ce_8.11.7-ce.0_amd64.deb
+** gitlab-ctl reconfigure 配置gitlab
