@@ -1,0 +1,8 @@
+# 安装gitlib -- 参考https://about.gitlab.com/downloads/#ubuntu1204
+* Install and configure the necessary dependencies
+** apt-get install curl openssh-server ca-certificates postfix
+* Add the GitLab package server and install the package
+** curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+sudo apt-get install gitlab-ce
+** 手工安装 下载包https://packages.gitlab.com/gitlab/gitlab-ce/packages/ubuntu/precise/gitlab-ce_8.11.7-ce.0_amd64.deb/download
+** dpkg -i /home/cxl/gitlab-ce-XXX.deb
