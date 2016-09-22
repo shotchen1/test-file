@@ -13,3 +13,16 @@ dpkg -s nano
 
 搜索软件包
 apt-cache search libssl-dev
+
+查看apache进程数
+ps aux|grep apache|wc -l
+netstat -nat|grep -i "80"|wc -l
+netstat -na|grep ESTABLISHED|wc -l
+SYN_RECV
+表示正在等待处理的请求数
+ESTABLISHED
+表示正常数据传输状态
+TIME_WAIT
+表示处理完毕等待超时结束的请求数。
+查看Apache的并发请求数及其TCP连接状态
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
