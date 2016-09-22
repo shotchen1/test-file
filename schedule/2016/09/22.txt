@@ -1,0 +1,3 @@
+# 去https://bitnami.com/stack/gitlab下载安装包
+# 运行安装文件 /home/cxl/src/bitnami-gitlab-8.9.6-0-linux-x64-installer.run 好像必须安装在1604ubuntu上，开始在1204上没装上
+# 访问10.0.0.24
