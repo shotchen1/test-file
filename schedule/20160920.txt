@@ -2,6 +2,7 @@
 # 参考svn学习设置权限
 # 提交readme.txt
 # git svn clone svn://10.0.0.21/testgit git检出项目
+
 # 测试svn与git同步
 * svn修改文件
 * git svn rebase 同步svn代码
@@ -11,6 +12,7 @@
 * git commit -m "add line from git"
 * install Perl's Term::ReadKey module root执行cpan Term::ReadKey
 * git svn dcommit
+
 # 测试git svn同时修改代码
 * svn修改readme
 * git修改readme
@@ -18,7 +20,9 @@
 * 解决冲突后 git add readme.txt
 * git rebase --continue
 * git svn dcommit 完成冲突解决
+
 # git开发模式
+
 # git分支测试
 * git branch test
 * git checkout test 切换到test分支
@@ -29,6 +33,7 @@
 * git checkout master 
 * git merge test 切换回主分支并merge 分支test的修改
 * git branch -d test 删除分支
+
 # git多分支测试
 * git checkout -b develope
 * 修改readme并提交
