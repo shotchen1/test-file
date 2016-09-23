@@ -73,3 +73,22 @@ apt-get install python-setuptools
 * git remote add origin http://10.0.0.24/cloudswitchboard/maintenance.git
 * git push --all origin
 
+# 开发服务器配置
+* 安装git
+* 检出git项目 git clone http://10.0.0.24/cloudswitchboard/maintenance.git
+* 检出git项目 git clone http://10.0.0.24/cloudswitchboard/web_enterprise.git
+* git svn clone svn://192.168.1.66/namtso/branch/web_code/emic_phone/maintenance
+* 遇到错误
+Can't locate SVN/Core.pm in @INC (@INC contains: /usr/local/share/perl/5.14.2 /etc/perl /usr/local/lib/perl/5.14.2 /usr/lib/perl5 /usr/share/perl5 /usr/lib/perl/5.14 /usr/share/perl/5.14 /usr/local/lib/site_perl .) at /usr/local/share/perl/5.14.2/Git/SVN/Utils.pm line 6.
+BEGIN failed--compilation aborted at /usr/local/share/perl/5.14.2/Git/SVN/Utils.pm line 6.
+Compilation failed in require at /usr/local/share/perl/5.14.2/Git/SVN.pm line 32.
+BEGIN failed--compilation aborted at /usr/local/share/perl/5.14.2/Git/SVN.pm line 32.
+Compilation failed in require at /usr/local/libexec/git-core/git-svn line 21.
+BEGIN failed--compilation aborted at /usr/local/libexec/git-core/git-svn line 21.
+* apt-get install subversion-tools 
+* 遇到错误
+Authentication realm: <svn://192.168.1.66:3690> puma5 repo
+Password for 'root': Can't locate Term/ReadKey.pm in @INC (@INC contains: /usr/local/share/perl/5.14.2 /etc/perl /usr/local/lib/perl/5.14.2 /usr/lib/perl5 /usr/share/perl5 /usr/lib/perl/5.14 /usr/share/perl/5.14 /usr/local/lib/site_perl .) at /usr/local/share/perl/5.14.2/Git.pm line 566.
+* cpan Term::ReadKey
+* git svn clone svn://192.168.1.66/namtso/branch/web_code/emic_phone/web_enterprise
+* git svn clone svn://192.168.1.66/namtso/branch/web_code/emic_phone/maintenance
