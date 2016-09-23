@@ -1,0 +1,1 @@
+今天建立真实项目，从trunk中导出maintenance和talk分别建立git项目
