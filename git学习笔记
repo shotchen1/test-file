@@ -49,5 +49,27 @@ apt-get install python-setuptools
 20、sudo -H -u git gitosis-init < /tmp/id_rsa.pub 利用公钥初始化 Gitosis 了
 21、sudo chmod 755 /home/git/repositories/gitosis-admin.git/hooks/post-update
 
-   
+做了很多实验，目前确定的方式是
+# 安装ubuntu 16.04
+# 安装gitlib
+# 安装git-svn
+# 在gitlib新建项目web_enterprise
+* 在/opt/git/ 下clone项目 svn://192.168.1.66/namtso/branch/web_code/emic_phone/trunk/web_enterprise
+* 在git里修改文件
+* git svn dcommit 提交到svn
+* git remote add origin http://10.0.0.24/cloudswitchboard/web_enterprise.git
+* git push --all origin
+* 在gitlib里面修改文件
+* git fetch origin master 拉取修改
+* git log -p master origin/master
+* git merge origin/master
+* 还有一种直接merge的办法 git pull origin master
+* git svn dcommit 提交到svn
+
+# 重复以上方法建立maintenance项目
+* 在gitlib新建项目maintenance
+* git svn clone -r20793 svn://192.168.1.66/namtso/branch/web_code/emic_phone/trunk/maintenance
+* git svn rebase 同步svn项目
+* git remote add origin http://10.0.0.24/cloudswitchboard/maintenance.git
+* git push --all origin
 
