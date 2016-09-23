@@ -1,1 +1,24 @@
 今天建立真实项目，从trunk中导出maintenance和talk分别建立git项目，在此之前先试验用另一账户导出项目
+# 在23上导出项目
+# 在23上提交项目
+# 安装ruby apt-get install ruby
+# gem install svn2git
+# giblib服务器莫名其妙的挂了
+# 卸载ruby： apt-get remove ruby
+# apt-get install git-svn 安装git-svn,这次没挂
+# clone svn 项目
+* git svn clone -r20724 svn://192.168.1.66/namtso/branch/web_code/svntest
+* git config --global user.email "chenxuelin@emicnet.com"
+* git config --global user.name "chenxuelin"
+* 创建readme文件 ，git commit -m "add new line"
+* git svn dcommit 提交到svn服务器
+* git svn rebase 更新svn信息到本地
+* 在gitlib下建立新项目
+* git remote add origin http://10.0.0.24/testgroup/svntest.git
+* git push --all origin 提交到gitlib
+* 在gitlib下修改文件
+* git pull origin master 获取gitlib中的更新
+* git fetch origin master
+* git log -p master..origin/master
+* git merge origin/master
+* fetch与pull的区别是pull自动merge，安全的做法是fetch后看看差别再merge
