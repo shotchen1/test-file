@@ -1,2 +1,5 @@
 = 安装 =
+= 参考资料 =
+* https://doc.gitlab.cc/ce/README.html
 = 功能使用 =
+双重认证 （two-factor authentication）
