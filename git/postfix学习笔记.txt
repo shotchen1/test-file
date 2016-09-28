@@ -1,3 +1,5 @@
 = 参考文档 =
 * http://www.postfix.org/documentation.html
+= 背景 = 
+Mail Transfer Agent (MTA)，用于向收件人的目标 agent 发送邮件和接收来自其他 agent 的邮件。我们使用 Postfix 作为 MTA，它比 sendmail 更安全高效，且在 Ubuntu 平台上官方源提供更新。
 = 安装 =
