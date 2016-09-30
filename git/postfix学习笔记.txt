@@ -3,3 +3,12 @@
 = 背景 = 
 Mail Transfer Agent (MTA)，用于向收件人的目标 agent 发送邮件和接收来自其他 agent 的邮件。我们使用 Postfix 作为 MTA，它比 sendmail 更安全高效，且在 Ubuntu 平台上官方源提供更新。
 = 安装 =
+* apt-get install postfix
+* apt-get install mailutils
+* vi /etc/postfix/main.cf 设置home_mailbox = Maildir/
+* /etc/init.d/postfix reload
+* /etc/init.d/postfix restart
+* netstat -tunlp |grep 25
+* telnet localhost 25
+* apt-get install courier-pop
+* apt-get install courier-imap
