@@ -1,0 +1,3 @@
+# shell 解析json文件
+# root@task:/home/cxl/JSON.sh-master#  ./JSON.sh <package.json | egrep '\["name"]' |awk '{print $2}'
+  "JSON.sh"
