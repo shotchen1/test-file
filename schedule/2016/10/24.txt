@@ -1,1 +1,15 @@
 * gitlib搭建
+
+* 创建大容量虚拟机
+**  vboxmanage createvm --name "ubuntu1604-30g-base" --ostype "Ubuntu_64" --basefolder "/home/cxl/virtualbox/vm/" --register
+**  vboxmanage clonehd /home/cxl/virtualbox/vm/ubuntu1604-base/ubuntu1604-base.vdi ubuntu1604-30g-base.vdi clone原虚拟机文件，大小是8g
+**  vboxmanage modifyhd b53cc7c7-6e3d-4c30-9cc1-e3c0cee75b33 --resize 30000 修改为30g
+**  vboxmanage showhdinfo b53cc7c7-6e3d-4c30-9cc1-e3c0cee75b33 查看硬盘信息
+**  上面创建的硬盘需要在系统内重新挂载，重新创建硬盘吧
+**  vboxmanage createvm --name "ubuntu1604-30gbase" --ostype "Ubuntu_64" --basefolder "/home/cxl/virtualbox/vm/" --register
+**  vboxmanage createhd --filename "/home/cxl/virtualbox/vm/ubuntu1604-30gbase/ubuntu1604-30gbase" --size 30000  创建30g虚拟硬盘
+**  vboxmanage storagectl "ubuntu1604-30gbase" --add ide  --name "ide controller" --bootable on  创建ide接口
+**  vboxmanage storageattach "ubuntu1604-30gbase" --storagectl "ide controller" --port 0 --device 0 --type hdd --medium "/home/cxl/virtualbox/vm/ubuntu1604-30gbase/ubuntu1604-30gbase.vdi" 虚拟机关联硬盘
+**  vboxmanage storageattach "ubuntu1604-30gbase" --storagectl "ide controller" --port 1 --device 0 --type dvddrive --medium "/home/cxl/virtualbox/iso/ubuntu-16.04-server-amd64.iso" 虚拟机关联光驱，加入iso安装文件
+**  vboxmanage modifyvm "ubuntu1604-30gbase" --memory 512 --vram 8 --nic1 bridged --bridgeadapter1 eth0 --vrde on --vrdeport 5000
+**  vboxmanage startvm "ubuntu1604-30gbase" --type headless
