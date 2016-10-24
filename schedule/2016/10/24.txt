@@ -13,3 +13,13 @@
 **  vboxmanage storageattach "ubuntu1604-30gbase" --storagectl "ide controller" --port 1 --device 0 --type dvddrive --medium "/home/cxl/virtualbox/iso/ubuntu-16.04-server-amd64.iso" 虚拟机关联光驱，加入iso安装文件
 **  vboxmanage modifyvm "ubuntu1604-30gbase" --memory 512 --vram 8 --nic1 bridged --bridgeadapter1 eth0 --vrde on --vrdeport 5000
 **  vboxmanage startvm "ubuntu1604-30gbase" --type headless
+**  修改ip地址，配置允许root可以ssh访问
+
+* 安装gitlab
+** echo "deb https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu xenial main" >/etc/apt/sources.list.d/gitlab-ce.list
+** apt-get update
+** sudo apt-get install openssh-server
+** curl https://packages.gitlab.com/gpg.key 2> /dev/null | sudo apt-key add - &>/dev/null
+** sudo apt-get install postfix
+** sudo netstat -lnpt 监听25端口
+
