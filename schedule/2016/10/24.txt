@@ -22,4 +22,31 @@
 ** curl https://packages.gitlab.com/gpg.key 2> /dev/null | sudo apt-key add - &>/dev/null
 ** sudo apt-get install postfix
 ** sudo netstat -lnpt 监听25端口
+** sudo dpkg -i gitlab-ce_8.13.0-ce.0_amd64.deb
+** sudo gitlab-ctl reconfigure
+** root密码Emicnet123456登录gitlab
+* 查看gitlab运维数据
+root@mail:/var/log/gitlab# sudo gitlab-ctl status
+run: gitlab-workhorse: (pid 7648) 5385s; run: log: (pid 7602) 5434s
+run: logrotate: (pid 11446) 1831s; run: log: (pid 7619) 5431s
+run: nginx: (pid 7608) 5433s; run: log: (pid 7607) 5433s
+run: postgresql: (pid 7459) 5468s; run: log: (pid 7458) 5468s
+run: redis: (pid 7372) 5474s; run: log: (pid 7371) 5474s
+run: sidekiq: (pid 12981) 428s; run: log: (pid 7592) 5440s
+run: unicorn: (pid 7562) 5441s; run: log: (pid 7561) 5441s
 
+# Start all GitLab components
+sudo gitlab-ctl start
+
+# Stop all GitLab components
+sudo gitlab-ctl stop
+
+# Restart all GitLab components
+sudo gitlab-ctl restart
+
+https://doc.gitlab.cc/omnibus/
+
+sudo gitlab-ctl tail 查看日志
+
+* 配置邮件地址
+* 测试忘记密码功能
