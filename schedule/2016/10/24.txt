@@ -50,3 +50,6 @@ sudo gitlab-ctl tail 查看日志
 
 * 配置邮件地址
 * 测试忘记密码功能
+* 增加虚拟机内存为1g
+* 配置unicorn 监听地址为10.0.0.28
+* netstat -ntlp
