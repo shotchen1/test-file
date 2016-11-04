@@ -1,1 +1,8 @@
-
+创建ubuntu1204-20g-base服务器
+**  vboxmanage createvm --name "ubuntu1204-20g-base" --ostype "Ubuntu_64" --basefolder "/home/cxl/virtualbox/vm/" --register
+**  vboxmanage createhd --filename "/home/cxl/virtualbox/vmubuntu1204-20g-base/ubuntu1204-20g-base" --size 20000  创建20g虚拟硬盘
+**  vboxmanage storagectl "ubuntu1204-20g-base" --add ide  --name "ide controller" --bootable on  创建ide接口
+**  vboxmanage storageattach "ubuntu1204-20g-base" --storagectl "ide controller" --port 0 --device 0 --type hdd --medium "/home/cxl/virtualbox/vm/ubuntu1204-20g-base/ubuntu1204-20g-base.vdi" 虚拟机关联硬盘
+**  vboxmanage storageattach "ubuntu1204-20g-base" --storagectl "ide controller" --port 1 --device 0 --type dvddrive --medium "/home/cxl/virtualbox/iso/ubuntu-12.04.1-server-amd64.iso" 虚拟机关联光驱，加入iso安装文件
+**  vboxmanage modifyvm "ubuntu1204-20g-base" --memory 512 --vram 8 --nic1 bridged --bridgeadapter1 eth0 --vrde on --vrdeport 5000
+**  vboxmanage startvm "ubuntu1204-20g-base" --type headless
