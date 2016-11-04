@@ -30,3 +30,32 @@ netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
 首次登陆修改root密码
 sudo su root
 passwd
+
+配置静态ip
+root@ubuntu1204base:/etc/apt# vi /etc/network/interfaces 
+auto eth1
+iface eth1 inet static
+address 10.0.0.23
+netmask 255.255.255.0
+gateway 10.0.0.254
+dns-nameservers 8.8.8.8 202.106.0.20
+~
+
+设置root身份登录ssh
+首先以root身份登录,使用命令 #vi /etc/ssh/sshd_config这个文件找到PermitRootLogin yes将其“#”号去掉即可开放ssh以root身份登录同时说明，
+ 端口操作也同理可以进行。重启ssh服务，键入/etc/init.d/sshd restart
+
+#配置samba
+ smbpasswd -a cxl
+ 查看samba用户pdbedit -L
+ 创建目录/home/cxl，修改权限chown cxl:cxl /home/cxl,chmod 777 /home/cxl
+ 修改samba配置文件
+     root@localhost:/etc/samba# vi smb.conf
+    [global]
+    security = user
+    [homes]
+    browseable = yes
+    public = no
+    writeable = yes
+ sudo /etc/init.d/smbd restart
+
