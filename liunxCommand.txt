@@ -59,3 +59,11 @@ dns-nameservers 8.8.8.8 202.106.0.20
     writeable = yes
  sudo /etc/init.d/smbd restart
 
+# apt-get
+  update
+     update 是同步 /etc/apt/sources.list 和 /etc/apt/sources.list.d 中列出的源的索引，这样才能获取到最新的软件包。
+
+  upgrade
+     upgrade 是升级已安装的所有软件包，升级之后的版本就是本地索引里的，因此，在执行 upgrade 之前一定要执行 update, 这样才能是最新的。
+     An update should always be performed before an upgrade or dist-upgrade.
+     upgrade is used to install the newest versions of all packages currently installed on the system from the sources enumerated in      /etc/apt/sources.list. Packages currently installed with new versions available are retrieved and upgraded.
