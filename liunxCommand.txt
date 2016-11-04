@@ -26,3 +26,7 @@ TIME_WAIT
 表示处理完毕等待超时结束的请求数。
 查看Apache的并发请求数及其TCP连接状态
 netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+
+首次登陆修改root密码
+sudo su root
+passwd
