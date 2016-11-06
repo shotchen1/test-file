@@ -15,3 +15,6 @@ vboxmanage modifyvm "ubuntu1604-20g-developer-base" --vrde on --vrdeport 5000
 vboxmanage startvm "ubuntu1604-20g-developer-base" --type headless
 
 建ubuntu1204开发机器基准机器
+vboxmanage clonevm "ubuntu1204-20g-base" --name "ubuntu1204-20g-base-developer" --register --basefolder "/home/cxl/virtualbox/vm/"
+vboxmanage modifyvm "ubuntu1204-20g-base-developer" --vrde on --vrdeport 5000
+vboxmanage startvm "ubuntu1204-20g-base-developer" --type headless
