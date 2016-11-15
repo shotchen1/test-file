@@ -57,3 +57,41 @@ Content-Length: 11
 hello world^]
 telnet> quit
 Connection closed.
+
+# 测试gateway方式
+# 下载demo
+# 运行php start.php start
+Workerman[start.php] start in DEBUG mode
+----------------------- WORKERMAN -----------------------------
+Workerman version:3.3.4          PHP version:7.0.8-0ubuntu0.16.04.3
+------------------------ WORKERS -------------------------------
+user          worker                 listen               processes status
+root          YourAppBusinessWorker  none                  4         [OK] 
+root          YourAppGateway         tcp://0.0.0.0:8282    4         [OK] 
+root          Register               text://0.0.0.0:1238   1         [OK] 
+----------------------------------------------------------------
+Press Ctrl-C to quit. Start success.
+# 客户端一
+# root@1604developer:~# telnet 127.0.0.1 8282
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+Hello 7f0000010b5500000001
+7f0000010b5500000001 login
+hello walk7f0000010b5500000002 login
+hello walkor
+7f0000010b5500000001 said hello walkhello walkor
+^]
+telnet> quit
+Connection closed.
+# 客户端二
+# telnet 127.0.0.1 8282
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+Hello 7f0000010b5500000002
+7f0000010b5500000002 login
+7f0000010b5500000001 said hello walkhello walkor
+7f0000010b5500000001 logout^]
+telnet> quit
+Connection closed.
