@@ -4,5 +4,23 @@ PHP 7.0.8-0ubuntu0.16.04.3 (cli) ( NTS )
 Copyright (c) 1997-2016 The PHP Group
 Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies
     with Zend OPcache v7.0.8-0ubuntu0.16.04.3, Copyright (c) 1999-2016, by Zend Technologies
+
+# apt-get install git
 # root@1604developer:~# git --version
 git version 2.7.4
+
+# apt-get install gcc
+# root@1604developer:~# gcc --version
+gcc (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+# apt-get install php-pear
+# root@1604developer:~# pear help version
+PEAR Version: 1.10.1
+PHP Version: 7.0.8-0ubuntu0.16.04.3
+Zend Engine Version: 3.0.0
+Running on: Linux 1604developer 4.4.0-21-generic #37-Ubuntu SMP Mon Apr 18 18:33:37 UTC 2016 x86_64
+
+# apt-get install php7.0-dev
