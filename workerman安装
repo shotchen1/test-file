@@ -24,3 +24,36 @@ Zend Engine Version: 3.0.0
 Running on: Linux 1604developer 4.4.0-21-generic #37-Ubuntu SMP Mon Apr 18 18:33:37 UTC 2016 x86_64
 
 # apt-get install php7.0-dev
+
+# apt-get install libevent-dev
+
+# root@1604developer:~# pecl help version
+PEAR Version: 1.10.1
+PHP Version: 7.0.8-0ubuntu0.16.04.3
+Zend Engine Version: 3.0.0
+Running on: Linux 1604developer 4.4.0-21-generic #37-Ubuntu SMP Mon Apr 18 18:33:37 UTC 2016 x86_64
+
+# pecl install event
+注意提示：Include libevent OpenSSL support [yes] : 时输入no回车，其它直接敲回车就行
+
+# 测试程序
+mkdir helloworld
+vi helloworld/test.php
+源码路径：http://doc3.workerman.net/getting-started/simple-example.html
+调用 php test.php start
+测试服务器
+root@1604developer:~# telnet 127.0.0.1 2345
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+GET /
+
+HTTP/1.1 200 OK
+Content-Type: text/html;charset=utf-8
+Connection: keep-alive
+Server: workerman/3.3.5
+Content-Length: 11
+
+hello world^]
+telnet> quit
+Connection closed.
