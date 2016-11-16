@@ -95,3 +95,13 @@ Hello 7f0000010b5500000002
 7f0000010b5500000001 logout^]
 telnet> quit
 Connection closed.
+
+# 安装其他扩展
+# apt-get install php7.0-mbstring
+# apt-get install php7.0-curl
+# apt-get install php7.0-gd
+
+# 查看安装的php扩展 php -m
+# 全局安装composer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
