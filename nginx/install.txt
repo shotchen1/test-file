@@ -1,0 +1,23 @@
+# sudo apt-get install nginx
+
+Ubuntu安装之后的文件结构大致为：
+所有的配置文件都在/etc/nginx下，并且每个虚拟主机已经安排在了/etc/nginx/sites-available下
+程序文件在/usr/sbin/nginx
+日志放在了/var/log/nginx中
+并已经在/etc/init.d/下创建了启动脚本nginx
+默认的虚拟主机的目录设置在了/var/www/nginx-default (有的版本 默认的虚拟主机的目录设置在了/var/www, 请参考/etc/nginx/sites-available里的配置)
+
+
+# systemctl status nginx
+
+#安装证书
+ apt-get install ssl-cert
+ make-ssl-cert generate-default-snakeoil 生成缺省证书
+ #默认的方式生成
+make-ssl-cert generate-default-snakeoil
+注：默认方式生成的公钥(证书)在/etc/ssl/certs/ssl-cert-snakeoil.pem，私钥在/etc/ssl/private/ssl-cert-snakeoil.key。
+
+#按模板文件生成
+make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/ssl/private/apache2.pem
+
+参考http://www.linuxidc.com/Linux/2011-11/47479.htm
