@@ -3,3 +3,4 @@
 # 测试nodejs支持es6属性
  npm install -g es-checker
  /home/cxl/nodejs/node-v7.2.0-linux-x64/lib/node_modules/es-checker/bin/check.js 
+# http://www.jdon.com/idea/js/js6-for-humans.html es6新语法
