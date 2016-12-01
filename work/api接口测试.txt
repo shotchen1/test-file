@@ -4,6 +4,13 @@
 *** eid
 *** json文件
 # 获取api通话记录（callLogs）接口
+# 接口说明
+根据条件获取api通话记录
+ ** ccNumber 等于通话唯一标示
+ ** lastCallLogId 大于通话记录起始id
+ ** pbxCallLogId 大于等于通话记录结束id
+ ** amount 分页数缺省10个
+ 前三个参数必须提供一个
 # 测试
 ** 创建json文件 calllog.json
 {"data":{"operation":"calllogs","un":"api4100","pwd":"21218cca77804d2ba1922c33e0151105","lastCallLogId":5,"pbxCallLogId":8,"amount":5}}
