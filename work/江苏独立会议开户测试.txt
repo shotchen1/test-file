@@ -10,7 +10,7 @@ curl http://10.0.0.23:1046/Api/Client/getBelongEnterprise?mobile=132411122222
 # 测试登录
 1、加入注册码 
 insert into m_register_code(randkey,uid,eid,mobile,register_code,sid) values('1234',1,12,'132411122222','1234',1)
-2、curl -d "mobile=132411122222&registerKey=1234" http://10.0.0.23:1046/Api/Client/getinfo
+2、测试获取登录信息：curl -d "mobile=132411122222&registerKey=1234" http://10.0.0.23:1046/Api/Client/getinfo
 {"status":"0","info":"","data":{"domain":"10.0.0.23","port":"9009","http_port":"1045","epName":"\u6c5f\u82cf\u4e91\u4f1a\u8bae\u5957\u9910","eid":"12","user":{"id":"17","sid":"1","mid":"17","uid":"1","eid":"12","mobile":"132411122222","m_area_code":"","number":"1000","direct_number":"","password":"EGv8PK","displayname":"1000","pinyin":"1000","get_number_count":"0","modify_time":"2016-11-30 18:12:14"}}}
 #删除会议号码
 curl -d "Operate=DeleteNumber&Number=025232323230" http://10.0.0.23:1046/Api/Bss/bssHttp
