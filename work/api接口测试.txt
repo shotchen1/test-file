@@ -1,0 +1,14 @@
+# json_interface
+** 请求地址 ： http://10.0.0.23:1045/Talk/Mapi/json_interface
+** 参数： 
+*** eid
+*** json文件
+# 获取api通话记录（callLogs）接口
+# 测试
+** 创建json文件 calllog.json
+{"data":{"operation":"calllogs","un":"api4100","pwd":"21218cca77804d2ba1922c33e0151105","lastCallLogId":5,"pbxCallLogId":8,"amount":5}}
+** 插入数据
+insert ignore into e_api_call_history(id,cc_number,status_data) values(5,'12232','33333'),(7,'22222','22222'),(8,'33333','333333'),(9,'44444','444444');
+** 发送请求 
+curl -F "eid=15" -F "file=@/home/cxl/test/calllog.json"  http://10.0.0.23:1045/Talk/Mapi/json_interface
+{"status":0,"info":"执行成功","data":[{"id":"7","cc_number":"22222","status_data":"22222","timestamp":null},{"id":"8","cc_number":"33333","status_data":"333333","timestamp":null}]}
