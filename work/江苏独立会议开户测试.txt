@@ -1,8 +1,14 @@
 # 创建独立会议企业
 curl -d "Operate=CreateMeetBridgeNumber&MeetBridgeNumber=025232323230&EpName=江苏云会议套餐&PlanCode=160510" http://10.0.0.23:1046/Api/Bss/bssHttp 
 # 检查数据正常
+use talk;
+select * from talk_enterprise order by id desc limit 1 \G 注意创建的用户数是会议方数
 select * from talk_pub_account order by id desc limit 1 \G
+select * from talk_user order by id desc limit 1 \G
+use maintenance
+select * from m_enterprise order by id desc limit 1 \G
 select * from m_pub_account order by id desc limit 1 \G
+select * from m_user order by id desc limit 1 \G
 # 新加一个用户1000
 # 测试获取归属企业
 curl http://10.0.0.23:1046/Api/Client/getBelongEnterprise?mobile=132411122222
@@ -12,15 +18,17 @@ curl http://10.0.0.23:1046/Api/Client/getBelongEnterprise?mobile=132411122222
 insert into m_register_code(randkey,uid,eid,mobile,register_code,sid) values('1234',1,12,'132411122222','1234',1)
 2、测试获取登录信息：curl -d "mobile=132411122222&registerKey=1234" http://10.0.0.23:1046/Api/Client/getinfo
 {"status":"0","info":"","data":{"domain":"10.0.0.23","port":"9009","http_port":"1045","epName":"\u6c5f\u82cf\u4e91\u4f1a\u8bae\u5957\u9910","eid":"12","user":{"id":"17","sid":"1","mid":"17","uid":"1","eid":"12","mobile":"132411122222","m_area_code":"","number":"1000","direct_number":"","password":"EGv8PK","displayname":"1000","pinyin":"1000","get_number_count":"0","modify_time":"2016-11-30 18:12:14"}}}
-#删除会议号码
+#删除会议号码，同时清空管理用户，标记企业为销户状态
 curl -d "Operate=DeleteNumber&Number=025232323230" http://10.0.0.23:1046/Api/Bss/bssHttp
 
 #测试原流程
 1、添加总机号码
 curl -d "Operate=CreateSwitchboard&Number=02533333333&MaxMember=50&EpName=新加总机" http://10.0.0.23:1046/Api/Bss/bssHttp 
-2、使用错误总机号码添加会议号码
+2、使用错误总机号码添加会议号码，主要测试是否与独立会议号码冲突
 curl -d "Operate=CreateMeetBridgeNumber&Number=02541414141&SwitchNumber=02533333334&PlanCode=160510" http://10.0.0.23:1046/Api/Bss/bssHttp 
-3、使用正确的总机号码添加会议号码
+3、使用正确的总机号码添加会议号码，主要测试是否与独立会议号码冲突
 curl -d "Operate=CreateMeetBridgeNumber&Number=02541414141&SwitchNumber=02533333333&PlanCode=160510" http://10.0.0.23:1046/Api/Bss/bssHttp
 4、删除会议号码
 curl -d "Operate=DeleteNumber&Number=02541414141" http://10.0.0.23:1046/Api/Bss/bssHttp
+5、删除总机号码，同时清空管理用户，标记企业为销户状态
+curl -d "Operate=DeleteNumber&Number=02533333333" http://10.0.0.23:1046/Api/Bss/bssHttp
