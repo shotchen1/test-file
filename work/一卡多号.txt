@@ -1,0 +1,8 @@
+# gitlib 上创建项目
+# clone项目git clone http://10.0.0.28/chenxuelin/emicnet-nodejs.git
+# npm init
+# git add package.json
+# git commit -m "***"
+# git push
+# npm install express --save
+# 
