@@ -15,3 +15,6 @@
 **sudo service mongod stop
 **sudo service mongod restart
 **https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+# 安装日志bole
+* npm install bole --save
+# npm ls 查询已安装模块
