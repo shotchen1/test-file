@@ -18,3 +18,4 @@
 # 安装日志bole
 * npm install bole --save
 # npm ls 查询已安装模块
+# npm install --save mongoose
