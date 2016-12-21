@@ -57,3 +57,8 @@ curl -d "Operate=CreateSwitchboard&Number=02581774908&MaxMember=50&EpName=Bug128
 
 curl -d "Operate=CreateSwitchboard&Number=085199993456&MaxMember=50&EpName=bss销户企业" http://127.0.0.1:1046/Api/Bss/bssHttp 
 curl -d "Operate=DeleteNumber&Number=085199993456&SwitchNumber=085199993456" http://127.0.0.1:1046/Api/Bss/bssHttp 
+
+# 上海总机
+curl -d "Operate=CreateSwitchboard&Number=02181774908&MaxMember=50&EpName=Bug12831测试&b_status=1" http://127.0.0.1:1046/Api/Bss/bssHttp
+curl -d "Operate=CreateSwitchboard&Number=02180230997&MaxMember=50&EpName=Bug12831测试&b_status=1" http://127.0.0.1:1046/Api/Bss/bssHttp
+curl -d "Operate=DeleteNumber&Number=02180230997" http://127.0.0.1:1046/Api/Bss/bssHttp
