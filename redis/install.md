@@ -8,3 +8,4 @@
 * OK
 * redis> get foo
 * "bar"
+ v111
