@@ -29,4 +29,20 @@
 * sadd birdpowers "flight"
 * sadd birdpowers "pecking"
 * sunion superpowers birdpowers 合并set
+
 # sorted set 可排序set
+* zadd hackers 1940 "alan key"
+* zadd hackers 1980 "Grace hopper"
+* zadd hackers 1945 "richard stallman"
+* zadd hackers 1944 "macker"
+* zrange hackers 0 -1
+
+# hashes
+* hset user:1000 name "john smith"
+* hset user:1000 email "john.smith@example.com"
+* hset user:1000 password "s3cret"
+* hgetall user:1000 
+* HMSET user:1001 name "Mary Jones" password "hidden" email "mjones@example.com"
+* SET user:1000 visits 10
+* HINCRBY user:1000 visits 1 加1
+* hdel user:1000 visits 删除值
