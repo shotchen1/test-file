@@ -14,5 +14,5 @@
 # 使用predis
 ---
 * 好处是不需要安装php扩展，直接require就行了
-
- v111
+* git clone git://github.com/nrk/predis.git
+* wget https://github.com/nrk/predis/archive/v1.1.1.tar.gz
