@@ -1,4 +1,5 @@
-# 安装redis
+# 安装redis  
+---
 * $ wget http://download.redis.io/releases/redis-3.2.6.tar.gz
 * $ tar xzf redis-3.2.6.tar.gz
 * $ cd redis-3.2.6
@@ -9,7 +10,8 @@
 * OK
 * redis> get foo
 * "bar"  
----
+
 # 使用predis
+  ---
 * 好处是不需要
  v111
