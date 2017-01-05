@@ -16,3 +16,9 @@
 * 好处是不需要安装php扩展，直接require就行了
 * git clone git://github.com/nrk/predis.git
 * wget https://github.com/nrk/predis/archive/v1.1.1.tar.gz
+
+      require_once VENDOR_PATH."predis/autoload.php";
+    	$redis = new Predis\Client("redis://127.0.0.1:6379/");
+    	$redis->set('library', 'predis');
+		  $retval = $redis->get('library');
+		  var_export($retval);
