@@ -18,10 +18,10 @@
 * wget https://github.com/nrk/predis/archive/v1.1.1.tar.gz
 * 解压缩，拷贝文件到vendor目录下
  
- require_once VENDOR_PATH."predis/autoload.php";
- $redis = new Predis\Client("redis://127.0.0.1:6379/");
- $redis->set('library', 'predis');
- $retval = $redis->get('library');
- var_export($retval);
+ require_once VENDOR_PATH."predis/autoload.php";</br>
+ $redis = new Predis\Client("redis://127.0.0.1:6379/");</br>
+ $redis->set('library', 'predis');</br>
+ $retval = $redis->get('library');</br>
+ var_export($retval);</br>
          
 * 以上测试代码返回'predis'
