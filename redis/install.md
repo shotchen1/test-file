@@ -24,3 +24,5 @@
          $redis->set('library', 'predis');
          $retval = $redis->get('library');
          var_export($retval);
+         
+* 以上测试代码返回'predis'
