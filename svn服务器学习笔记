@@ -1,5 +1,13 @@
 # 安装subversion
 apt-get install subversion
+# 安装svn1.8
+# vi /etc/apt/sources.list.d/subversion.list
+'''
+#subversion  
+deb http://ppa.launchpad.net/dominik-stadler/subversion-1.8/ubuntu/ precise main
+deb-src http://ppa.launchpad.net/dominik-stadler/subversion-1.8/ubuntu/ precise main
+'''
+
 
 # 创建项目目录
 mkdir svn
