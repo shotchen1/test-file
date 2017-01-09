@@ -2,13 +2,23 @@
 apt-get install subversion
 # 安装svn1.8
 # vi /etc/apt/sources.list.d/subversion.list
-'''
-#subversion  
-deb http://ppa.launchpad.net/dominik-stadler/subversion-1.8/ubuntu/ precise main
-deb-src http://ppa.launchpad.net/dominik-stadler/subversion-1.8/ubuntu/ precise main
-'''
 
+ #subversion  
+ deb http://ppa.launchpad.net/dominik-stadler/subversion-1.8/ubuntu/ precise main
+ deb-src http://ppa.launchpad.net/dominik-stadler/subversion-1.8/ubuntu/ precise main
 
+# apt-get update 报错
+ W: GPG error: http://ppa.launchpad.net precise Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 2380DF3029E526FC
+ W: Failed to fetch bzip2:/var/lib/apt/lists/partial/ppa.launchpad.net_dominik-stadler_subversion-1.8_ubuntu_dists_precise_main_i18n_Translation-en  Hash Sum mismatch
+# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 2380DF3029E526FC
+# 安装svn1.8 方法2
+* apt-get install python-software-properties 
+* sudo apt-add-repository ppa:dominik-stadler/subversion-1.8
+* apt-get update
+# 安装svn1.9
+* sudo add-apt-repository ppa:dominik-stadler/subversion-1.9
+* apt-get update
+ 
 # 创建项目目录
 mkdir svn
 
