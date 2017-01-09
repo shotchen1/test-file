@@ -18,6 +18,15 @@ apt-get install subversion
 # 安装svn1.9
 * sudo add-apt-repository ppa:dominik-stadler/subversion-1.9
 * apt-get update
+* apt-cache show subversion
+* apt-get install subversion
+# 安装1.8
+ sudo sh -c 'echo "deb http://opensource.wandisco.com/ubuntu precise svn18" >> /etc/apt/sources.list.d/subversion18.list'
+ sudo wget -q http://opensource.wandisco.com/wandisco-debian.gpg -O- | sudo apt-key add -
+ sudo apt-get update
+ sudo apt-cache show subversion | grep '^Version:'
+ sudo apt-get install subversion
+ 
  
 # 创建项目目录
 mkdir svn
