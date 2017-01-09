@@ -1,3 +1,9 @@
-# mysql
-  apt-get install mysql-server
-# 
+install cloud telephone
+# apt-get install mysql-server
+# apt-get install apache2
+# apt-get install php5
+# apt-get install libapache2-mod-auth-mysql
+# apt-get install php5-mysql
+# apt-get install php5-gd
+# apt-get install php5-curl
+# apt-get install lrzsz
