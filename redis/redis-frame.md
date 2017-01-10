@@ -3,10 +3,15 @@
 
 # 配置
 * redis配置
-
-'''shell
+```Java
+public static void main(String[]args){} //Java
+```
+```c
+int main(int argc, char *argv[]) //C
+```
+```shell
 vi redis.conf
-'''
+```
 
 * iptable配置
 
