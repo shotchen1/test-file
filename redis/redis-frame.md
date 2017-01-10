@@ -3,12 +3,7 @@
 
 # 配置
 * redis配置
-```Java
-public static void main(String[]args){} //Java
-```
-```c
-int main(int argc, char *argv[]) //C
-```
+
 ```shell
 vi redis.conf
 ```
