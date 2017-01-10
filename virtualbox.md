@@ -46,7 +46,8 @@
 42、vboxmanage storageattach "ubuntu1604-base" --storagectl "ide controller" --port 1 --device 0 --type dvddrive --medium "/home/cxl/virtualbox/iso/ubuntu-16.04-server-amd64.iso" 虚拟机关联光驱，加入iso安装文件
 43、vboxmanage modifyvm "20-buildserver" --name "21-buildserver" --vrde off修改虚拟机名称
 
-
+  vboxmanage modifyvm 232ubuntu12g30 --nic1 none
+  vboxmanage modifyvm 232ubuntu12g30 --nic1 bridged --bridgeadapter1 eth0
 root
 
 
