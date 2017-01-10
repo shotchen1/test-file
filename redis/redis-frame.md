@@ -4,7 +4,7 @@
 # 配置
 * redis配置
 
-'''
+'''shell
 vi redis.conf
 '''
 
