@@ -1,5 +1,7 @@
-1：apt-get install dkms 用于管理linux编译安装内核模块
-2：dpkg -i virtualbox-5.1_5.1.0-108711-Ubuntu-trusty_amd64.deb 底层安装virtualbox包
+# install dkms
+    apt-get install dkms 用于管理linux编译安装内核模块
+# 底层安装virtualbox包
+    dpkg -i virtualbox-5.1_5.1.0-108711-Ubuntu-trusty_amd64.deb 
 
 
 1、编辑source.list添加如下内容deb http://download.virtualbox.org/virtualbox/debian trusty contrib
@@ -45,9 +47,11 @@
 41、vboxmanage storageattach "ubuntu1604-base" --storagectl "ide controller" --port 0 --device 0 --type hdd --medium "/home/cxl/virtualbox/vm/ubuntu1604-base/ubuntu1604-base.vdi" 虚拟机关联硬盘
 42、vboxmanage storageattach "ubuntu1604-base" --storagectl "ide controller" --port 1 --device 0 --type dvddrive --medium "/home/cxl/virtualbox/iso/ubuntu-16.04-server-amd64.iso" 虚拟机关联光驱，加入iso安装文件
 43、vboxmanage modifyvm "20-buildserver" --name "21-buildserver" --vrde off修改虚拟机名称
-
+'''
   vboxmanage modifyvm 232ubuntu12g30 --nic1 none
   vboxmanage modifyvm 232ubuntu12g30 --nic1 bridged --bridgeadapter1 eth0
+'''
+
 root
 
 
