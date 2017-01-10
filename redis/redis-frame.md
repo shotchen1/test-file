@@ -3,9 +3,11 @@
 
 # 配置
 * redis配置
+
 '''
 vi redis.conf
 '''
+
 * iptable配置
 
 
