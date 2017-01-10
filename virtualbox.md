@@ -3,6 +3,7 @@
 # 底层安装virtualbox包
     dpkg -i virtualbox-5.1_5.1.0-108711-Ubuntu-trusty_amd64.deb 
 
+# 使用过程
 '''
 编辑source.list添加如下内容deb http://download.virtualbox.org/virtualbox/debian trusty contrib
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
