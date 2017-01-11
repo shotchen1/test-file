@@ -12,6 +12,9 @@ vi redis.conf
 
 # 测试
 
+## redis数据类型测试
+* 参照 [redis测试](test.md)
+
 ## 安全测试
 * 只有使用密码才能访问
 * 指定ip才能访问
