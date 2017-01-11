@@ -6,6 +6,18 @@
 
 ```shell
 vi redis.conf
+bind 10.0.0.23
+daemonize yes
+logfile "/var/pbx/tmp/Logs/redis/redis_6379.log"
+dbfilename dump_6379.rdb
+//生产环境
+rename-command FLUSHALL ""
+rename-command FLUSHDB ""
+rename-command KEYS ""
+rename-command CONFIG ""
+maxmemory 1gb //占用的最大内存
+appendonly yes
+appendfilename "appendonly_6379.aof"
 ```
 
 * iptable配置
@@ -27,6 +39,7 @@ vi redis.conf
 * 最大内存测试
 * 大并发测试
 * 监控性能
+** 监控内存
 
 # 代码示例
 
