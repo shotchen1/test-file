@@ -18,7 +18,7 @@ rename-command CONFIG ""
 maxmemory 1gb //占用的最大内存
 appendonly yes
 appendfilename "appendonly_6379.aof"
-requirepass "12345678901234567689" //需要密码才能访问，目前暂不考虑
+requirepass "12345678901234567689" //需要密码才能访问
 ```
 
 * iptable配置
