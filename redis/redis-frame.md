@@ -18,10 +18,14 @@ rename-command CONFIG ""
 maxmemory 1gb //占用的最大内存
 appendonly yes
 appendfilename "appendonly_6379.aof"
+requirepass "12345678901234567689" //需要密码才能访问，目前暂不考虑
 ```
 
 * iptable配置
+** 考虑到安全，不允许外网用户访问redis
+```
 
+```
 # 测试
 
 ## redis数据类型测试
