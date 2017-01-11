@@ -25,5 +25,5 @@ vi redis.conf
 
 ## predis
 
-参照[predis安装](install.md?# 使用predis)
+参照[predis安装](install.md# 使用predis)
 ## phpredis
