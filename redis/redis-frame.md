@@ -40,6 +40,8 @@ iptables -L -v
 iptables -L -v
 可以看到刚刚配置的规则都在
 ```
+
+
 # 测试
 
 ## redis数据类型测试
