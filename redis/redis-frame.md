@@ -22,3 +22,8 @@ vi redis.conf
 * 监控性能
 
 # 代码示例
+
+## predis
+
+参照[predis安装](install.md?# 使用predis)
+## phpredis
