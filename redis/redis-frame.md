@@ -168,13 +168,16 @@ vi addKey.sh
      used_memory_human:803.70K
      看出来，redis初始状态就占用803.70k，所以设置1m最大内存，实际可用应该是200k左右
 运行脚本插入1000个键值
+
 >方式1
 ./addkey.sh | nc 10.0.0.23 6379
+
 >方式2
 ./addkey.sh | ../redis-3.2.6/src/redis-cli -h 10.0.0.23 -a prettydogKnockTheDoor --pipe
 All data transferred. Waiting for the last reply...
 Last reply received from server.
 errors: 0, replies: 100001
+
 
 10.0.0.23:6379> info
      # Memory
@@ -406,6 +409,8 @@ root@ubuntu1204base:/home/cxl/redis/redis-3.2.6# src/redis-benchmark -h 10.0.0.2
    used_memory_lua:37888
    used_memory_lua_human:37.00K
 ```
+
+
 # 代码示例
 
 ## predis
