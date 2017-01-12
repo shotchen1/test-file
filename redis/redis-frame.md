@@ -19,6 +19,7 @@ maxmemory 1gb //占用的最大内存
 appendonly yes
 appendfilename "appendonly_6379.aof"
 requirepass "prettydogKnockTheDoor" //需要密码才能访问
+将redis加入到系统自启动的脚本中
 ```
 
 * iptable配置
@@ -97,8 +98,43 @@ telnet: Unable to connect to remote host: Connection refused
 
 ## 数据恢复测试
 * kill redis 进程
-* 重启redis进程，查看redis数据
+```
+root@ubuntu1204base:/home/cxl/redis/redis-3.2.6# src/redis-cli -h 10.0.0.23
+10.0.0.23:6379> auth prettydogKnockTheDoor
+OK
+10.0.0.23:6379> set "first Key" "first Value"
+OK
+10.0.0.23:6379> get "first Key"
+"first Value"
+10.0.0.23:6379> quit
+root@ubuntu1204base:/home/cxl/redis/redis-3.2.6# ps -aux |grep redis
+Warning: bad ps syntax, perhaps a bogus '-'? See http://procps.sf.net/faq.html
+root      4418  0.1  0.3  36124  1564 ?        Ssl  17:54   0:00 src/redis-server 10.0.0.23:6379
+root      4497  0.0  0.1   9380   936 pts/2    S+   17:57   0:00 grep --color=auto redis
+root@ubuntu1204base:/home/cxl/redis/redis-3.2.6# kill 4418
+root@ubuntu1204base:/home/cxl/redis/redis-3.2.6# src/redis-server redis.conf
+root@ubuntu1204base:/home/cxl/redis/redis-3.2.6# src/redis-cli -h 10.0.0.23
+10.0.0.23:6379> keys *
+(error) NOAUTH Authentication required.
+10.0.0.23:6379> auth prettydogKnockTheDoor
+OK
+10.0.0.23:6379> get "first Key"
+"first Value"
+10.0.0.23:6379> quit
 
+```
+* 重启redis进程，查看redis数据
+```
+root@ubuntu1204base:/home/cxl/redis/redis-3.2.6# reboot
+root@ubuntu1204base:/home/cxl/redis/redis-3.2.6# src/redis-server redis.conf
+root@ubuntu1204base:/home/cxl/redis/redis-3.2.6# src/redis-cli -h 10.0.0.23
+10.0.0.23:6379> auth prettydogKnockTheDoor
+OK
+10.0.0.23:6379> get "first Key"
+"first Value"
+10.0.0.23:6379> 
+
+```
 ## 性能测试
 * 最大内存测试
 * 大并发测试
