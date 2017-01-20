@@ -236,7 +236,7 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
 ```
 
 # 服务器准备
-
+```
 * apt-get update
 * root@1604developer:/etc/apt# git --version
   git version 2.7.4
@@ -251,4 +251,4 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
 * apt-get install autoconf
   root@1604developer:/etc/apt# autoconf --version
   autoconf (GNU Autoconf) 2.69
-
+```
