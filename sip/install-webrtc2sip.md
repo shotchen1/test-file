@@ -268,7 +268,9 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
 * apt install pkg-config
   root@1604developer:/etc/apt# pkg-config --version
   0.29.1
- 
+```
+# 安装doubango框架
+```
 * git clone https://github.com/DoubangoTelecom/doubango.git
 * git clone https://github.com/cisco/libsrtp/
   cd libsrtp
