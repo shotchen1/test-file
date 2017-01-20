@@ -235,3 +235,20 @@ make clean && make && make install
 cp -f ./config.xml $PREFIX/sbin/config.xml
 ```
 
+# 服务器准备
+
+* apt-get update
+* root@1604developer:/etc/apt# git --version
+  git version 2.7.4
+* root@1604developer:/etc/apt# wget --version
+  GNU Wget 1.17.1 built on linux-gnu
+* apt install make
+  root@1604developer:/etc/apt# make --version
+  GNU Make 4.1
+* apt-get install libtool
+  root@1604developer:~# libtoolize --version
+  libtoolize (GNU libtool) 2.4.6
+* apt-get install autoconf
+  root@1604developer:/etc/apt# autoconf --version
+  autoconf (GNU Autoconf) 2.69
+
