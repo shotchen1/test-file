@@ -251,4 +251,58 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
 * apt-get install autoconf
   root@1604developer:/etc/apt# autoconf --version
   autoconf (GNU Autoconf) 2.69
+* apt-get install subversion
+  root@1604developer:/etc/apt# svn --version
+  svn, version 1.9.3 (r1718519)
+* apt-get install cvs
+  root@1604developer:/etc/apt# cvs --version
+  Concurrent Versions System (CVS) 1.12.13-MirDebian-11 (client/server)
+* apt-get install libogg-dev
+  root@1604developer:/etc/apt# apt-cache show libogg-dev | grep "^Version"
+  Version: 1.3.2-1
+* root@1604developer:/etc/apt# gcc --version
+  gcc (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+* apt install g++
+  root@1604developer:/etc/apt# g++ --version
+  g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+* apt install pkg-config
+  root@1604developer:/etc/apt# pkg-config --version
+  0.29.1
+ 
+* git clone https://github.com/DoubangoTelecom/doubango.git
+* git clone https://github.com/cisco/libsrtp/
+  cd libsrtp
+  CFLAGS="-fPIC" ./configure --enable-pic && make && make install
+* root@1604developer:/home/cxl/sip/depend/libsrtp# openssl version -a
+  OpenSSL 1.0.2g  1 Mar 2016
+* wget http://downloads.xiph.org/releases/speex/speex-1.2beta3.tar.gz
+  tar -xvzf speex-1.2beta3.tar.gz
+  cd speex-1.2beta3
+  ./configure --disable-oggtest --without-libogg && make && make install
+  
+  find /usr -name libspeex.so.1
+  root@1604developer:/home/cxl/sip/depend/speex-1.2beta3# speexenc --version
+  speexenc (Speex encoder) version 1.2beta3 (compiled Jan 20 2017)
+* wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
+  tar -xvzf yasm-1.2.0.tar.gz
+  cd yasm-1.2.0
+  ./configure && make && make install
+  root@1604developer:/home/cxl/sip/depend/yasm-1.2.0# yasm --version
+  yasm 1.2.0
+
+* git clone https://chromium.googlesource.com/webm/libvpx
+  cd libvpx
+  ./configure --enable-realtime-only --enable-error-concealment --disable-examples --enable-vp8 --enable-pic --enable-shared --as=yasm
+  make && make install
+  ls  /usr/local/lib/libvpx.so
+
+* mkdir libyuv && cd libyuv
+  git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+  git clone https://chromium.googlesource.com/libyuv/libyuv
+  https://chromium.googlesource.com/libyuv/libyuv/+/master/docs/getting_started.md
+  apt-get install clang-3.8
+  make V=1 -f linux.mk
+  make V=1 -f linux.mk clean
+  make V=1 -f linux.mk CXX=clang++
+  
 ```
