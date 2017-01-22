@@ -346,6 +346,19 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
   cd g729
   ./autogen.sh && ./configure --enable-static --disable-shared && make && make install
 
+* cd doubango/thirdparties/scripts/ilbc
+  wget http://www.ietf.org/rfc/rfc3951.txt
+  wget http://www.ietf.org/rfc/rfc3951.txt
+  awk -f extract.awk rfc3951.txt
+  vi autogen.sh
+  set ff=unix
+  wq
+  ./autogen.sh && ./configure
+  make && make install
+* wget ftp://ftp.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
+  tar -xvjf last_x264.tar.bz2
+  cd x264-snapshot-20170121-2245/
+  ./configure --enable-shared --enable-pic && make && make install
 
 
   
