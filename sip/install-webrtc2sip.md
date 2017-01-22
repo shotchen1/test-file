@@ -275,6 +275,10 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
 * git clone https://github.com/cisco/libsrtp/
   cd libsrtp
   CFLAGS="-fPIC" ./configure --enable-pic && make && make install
+  apt-cache search /usr/share/dict*
+  apt-get install wbritish
+  make runtest
+  
 * root@1604developer:/home/cxl/sip/depend/libsrtp# openssl version -a
   OpenSSL 1.0.2g  1 Mar 2016
 * wget http://downloads.xiph.org/releases/speex/speex-1.2beta3.tar.gz
@@ -360,6 +364,12 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
   cd x264-snapshot-20170121-2245/
   ./configure --enable-shared --enable-pic && make && make install
 
-
+* git clone git://source.ffmpeg.org/ffmpeg.git ffmpeg
+  git clone https://github.com/FFmpeg/FFmpeg.git 
+  cd Ffmpeg
+  git checkout n1.2
+  ./configure --extra-cflags="-fPIC" --extra-ldflags="-lpthread" --enable-pic --enable-memalign-hack --enable-pthreads --enable-shared --disable-static --disable-network --enable-pthreads --disable-ffmpeg --disable-ffplay --disable-ffserver --disable-ffprobe --enable-gpl --disable-debug
+  make && make install
   
+* 
 ```
