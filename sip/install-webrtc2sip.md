@@ -303,8 +303,50 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
   git clone https://chromium.googlesource.com/libyuv/libyuv
   https://chromium.googlesource.com/libyuv/libyuv/+/master/docs/getting_started.md
   apt-get install clang-3.8
+  apt install clang
   make V=1 -f linux.mk
   make V=1 -f linux.mk clean
   make V=1 -f linux.mk CXX=clang++
+  apt-get install cmake
+  
+  mkdir out
+  cd out
+  cmake ..
+  cmake --build .
+  
+  mkdir out
+  cd out
+  cmake -DCMAKE_INSTALL_PREFIX="/usr/lib" -DCMAKE_BUILD_TYPE="Release" ..
+  cmake --build . --config Release
+  sudo cmake --build . --target install --config Release
+  
+  cp libyuv.a /usr/local/lib/libyuv.a
+  cp include/* /usr/local/include/libyuv/ -rf
+  git clone https://github.com/libjpeg-turbo/libjpeg-turbo.git
+  cd libjpeg-turbo
+  autoreconf -fiv
+  mkdir out && cd out
+  ../configure
+  make
+  cp .libs/libjpeg.a /usr/local/lib/libjpeg.a
+  cd /usr/local/lib
+  ln -s libjpeg.a libjpeg_turbo.a
+* git clone git://opencore-amr.git.sourceforge.net/gitroot/opencore-amr/opencore-amr
+  cd opencore-amr && autoreconf --install && ./configure && make && make install
+* wget http://downloads.xiph.org/releases/opus/opus-1.0.2.tar.gz
+  tar -xvzf opus-1.0.2.tar.gz
+  cd opus-1.0.2
+  ./configure --with-pic --enable-float-approx && make && make install
+* wget http://www.quut.com/gsm/gsm-1.0.13.tar.gz
+  tar -xvzf gsm-1.0.13.tar.gz
+  cd gsm-1.0-pl13 && make && make install
+  #cp -rf ./inc/* /usr/local/include
+  #cp -rf ./lib/* /usr/local/lib
+* git clone https://github.com/DoubangoTelecom/g729.git
+  cd g729
+  ./autogen.sh && ./configure --enable-static --disable-shared && make && make install
+
+
+
   
 ```
