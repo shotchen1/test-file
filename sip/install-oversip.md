@@ -3,9 +3,14 @@
   
 * apt install ruby
 * apt  install ruby-dev
-* gem -v
-  2.5.1
-* make --version && gcc --version && g++ --version
+* gem -v &&  make --version && gcc --version && g++ --version && openssl version
 * apt install libev4
 
 # install oversip
+* gem install oversip
+
+# 在ubuntu12.04上安装
+* echo "deb http://deb.versatica.com precise main" > /etc/apt/sources.list.d/versatica.list
+* wget -O - http://deb.versatica.com/deb.versatica.com.key | apt-key add -
+* apt-get update
+* apt-get install oversip
