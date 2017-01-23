@@ -385,5 +385,14 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
 *  cd doubango && ./autogen.sh && ./configure --with-ssl --with-srtp --with-speexdsp
    make && make install
 
-* 
+* apt-get install libxml2-dev
+  apt-get install libxml2
+  
+* git clone https://github.com/DoubangoTelecom/webrtc2sip.git
+  export PREFIX=/opt/webrtc2sip
+  cd webrtc2sip && ./autogen.sh &&  ./configure --prefix=$PREFIX CFLAGS='-lpthread' LDFLAGS='-ldl' LIBS='-ldl'
+  make clean && make && make install
+  cp -f ./config.xml $PREFIX/sbin/config.xml
+  /opt/webrtc2sip/sbin/webrtc2sip
+
 ```
