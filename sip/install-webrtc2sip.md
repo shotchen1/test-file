@@ -82,11 +82,11 @@ The first step is to checkout Doubango 2.0 source code:
 svn checkout http://doubango.googlecode.com/svn/branches/2.0/doubango doubango
 
 1.	Building libsrtp
-libsrtp is required.
-git clone https://github.com/cisco/libsrtp/
-cd libsrtp
-CFLAGS="-fPIC" ./configure --enable-pic && make && make install
-
+  libsrtp is required.
+  git clone https://github.com/cisco/libsrtp/
+  cd libsrtp
+  CFLAGS="-fPIC" ./configure --enable-pic && make && make install
+  
 2.	Building OpenSSL
 OpenSSL is required if you want to use the RTCWeb Brapteaker module or Secure WebSocket transport (WSS). OpenSSL version 1.0.1 is required if you want support for DTLS-SRTP.
 This section is only required if you don’t have OpenSSL installed on your system or using version prior to 1.0.1 and want to enable DTLS-SRTP. 
@@ -278,9 +278,20 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
   apt-cache search /usr/share/dict*
   apt-get install wbritish
   make runtest
+  git pull 
+  git checkout v1.5.4
+  make clean
+  CFLAGS="-fPIC" ./configure --enable-pic && make && make install
   
 * root@1604developer:/home/cxl/sip/depend/libsrtp# openssl version -a
   OpenSSL 1.0.2g  1 Mar 2016
+  wget http://www.openssl.org/source/openssl-1.0.1c.tar.gz
+  tar -xvzf openssl-1.0.1c.tar.gz
+  cd openssl-1.0.1c
+  ./config shared --prefix=/usr/local --openssldir=/usr/local/openssl && make && make install
+
+  
+  
 * wget http://downloads.xiph.org/releases/speex/speex-1.2beta3.tar.gz
   tar -xvzf speex-1.2beta3.tar.gz
   cd speex-1.2beta3
@@ -371,5 +382,8 @@ cp -f ./config.xml $PREFIX/sbin/config.xml
   ./configure --extra-cflags="-fPIC" --extra-ldflags="-lpthread" --enable-pic --enable-memalign-hack --enable-pthreads --enable-shared --disable-static --disable-network --enable-pthreads --disable-ffmpeg --disable-ffplay --disable-ffserver --disable-ffprobe --enable-gpl --disable-debug
   make && make install
   
+*  cd doubango && ./autogen.sh && ./configure --with-ssl --with-srtp --with-speexdsp
+   make && make install
+
 * 
 ```
