@@ -3,6 +3,7 @@
  create procedure auto_insert_tbdata(tablename varchar(64),datacount int(10),eid int(11) unsigned)
  begin
    declare sqlstart int(11) unsigned;
+   
    declare sqlend int(11) unsigned;
    declare vsql varchar(1000);
    declare vfield varchar(500);
