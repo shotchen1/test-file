@@ -1,3 +1,4 @@
+<code>
 drop procedure auto_insert_tbdata;
 delimiter //
 create procedure auto_insert_tbdata(tablename varchar(64),datacount int(10),eid int(11) unsigned)
@@ -41,3 +42,4 @@ begin
    select sqlend;
 end//
 delimiter ;
+</code>
